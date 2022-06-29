@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: API for Problem
+  description: Rest API provided by Domain Microservice Problem.
+
+paths: 
+  /problems: 
+    get:
+      tags: 
+        - Problems
+      summary: Get information about all problems.
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        400:
+          description: invalid request message framing.
+        404:
+          description: Requested data doesn't exist.
+
+    post:
+      tags:
+        - Problems
+      summary: Add a new Problem.
+      requestBody:
+        $ref: '#/components/requestBodies/problemRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/problem'
+        400:
+          description: invalid request message framing.
+        401:
+          description: unauthorized access.
+        404:
+          description: Requested data doesn't exist.
+
+  /problems/{pin}: 
+    parameters:
+    - $ref: '#/components/parameters/pin'
+    get:
+      tags: 
+        - Problems
+      summary: Get all information about a specific problem.
+      responses:
+        200:
+          $ref: '#/components/responses/problem'
+        400:
+          description: invalid request message framing.
+        404:
+          description: Requested data doesn't exist.
+        
+    put:
+      tags: 
+        - Problems
+      summary: Change information about a specific problem.
+      requestBody:
+        $ref: '#/components/requestBodies/problem'
+      responses:
+        200:
+          $ref: '#/components/responses/problem'
+        400:
+          description: invalid request message framing.
+        401:
+          description: unauthorized access.
+        404:
+          description: Requested data doesn't exist.
+          
+    delete:
+      tags:
+        - Problems
+      summary: Delete a problem.
+      responses:
+        200:
+          description: Succesfully deleted.
+        400:
+          description: invalid request message framing.
+        401:
+          description: unauthorized access.
+        404:
+          description: Requested data doesn't exist.
+
+components:
+  parameters:
+    pin:
+      in: path
+      name: pin
+      required: true
+      description: The Problem Identification Number (PIN) as unique number of a problem.
+      style: simple
+      schema:
+        $ref: '#/components/schemas/pin'
+  
+  schemas:
+ # single values
+    pin:
+      type: string
+      example: p-371
+      minimum: 1
+     
+    reference: 
+      $ref: '#/components/schemas/in'
+    
+    title:
+      type: string
+      example: "Aufzug defekt"
+      minimum: 1
+    
+    description:
+      type: string
+      example: "Der Aufzug hat einen technischen Defekt und funktioniert deshalb gerade nicht."
+      minimum: 1
+    
+    date:
+      type: string
+      format: date-time
+      example: "2021-12-29-13T15:52:17Z"
+      minimum: 1
+    
+    reporter:
+      type: string
+      example: "Max Mustermann"
+      minimum: 1
+    
+    in:
+      type: string
+      example: "r-2312"
+      minimum: 1
+      
+    open:
+      type: object
+      properties:
+        contextProblem: 
+          $ref: '#/components/schemas/problem'
+
+    closed:
+      type: object
+      properties:
+        contextProblem: 
+          $ref: '#/components/schemas/problem'
+
+    accepted:
+      type: object
+      properties:
+        contextProblem:
+          $ref: '#/components/schemas/problem'
+
+    declined:
+      type: object
+      properties:
+        contextProblem: 
+          $ref: '#/components/schemas/problem'
+
+    inProgress:
+      type: object
+      properties:
+        contextProblem: 
+          $ref: '#/components/schemas/problem'
+
+ # multiple values
+    problem:
+      type: object
+      properties:
+        reference:
+          $ref: '#/components/schemas/reference'
+        currentState:
+          oneOf:
+            - $ref: '#/components/schemas/open'
+            - $ref: '#/components/schemas/closed'
+            - $ref: '#/components/schemas/accepted'
+            - $ref: '#/components/schemas/declined'
+            - $ref: '#/components/schemas/inProgress'
+        title:
+          $ref: '#/components/schemas/title'
+        description:
+          $ref: '#/components/schemas/description'
+        date:
+          $ref: '#/components/schemas/date'
+        reporter:
+          $ref: '#/components/schemas/reporter'
+        in:
+          $ref: '#/components/schemas/in'
+    
+    problemRequest:
+      type: object
+      properties:
+        reference:
+          $ref: '#/components/schemas/reference'
+        currentState:
+          oneOf:
+            - $ref: '#/components/schemas/open'
+            - $ref: '#/components/schemas/closed'
+            - $ref: '#/components/schemas/accepted'
+            - $ref: '#/components/schemas/declined'
+            - $ref: '#/components/schemas/inProgress'
+        title:
+          $ref: '#/components/schemas/title'
+        description:
+          $ref: '#/components/schemas/description'
+        date:
+          $ref: '#/components/schemas/date'
+        reporter:
+          $ref: '#/components/schemas/reporter'
+          
+     
+  requestBodies:
+    problem:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/problem'
+
+    problemRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/problemRequest'
+     
+  responses:
+    problem:
+      description: Sucessful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/problem'

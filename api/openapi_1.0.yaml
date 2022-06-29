@@ -1,0 +1,205 @@
+---
+openapi: 3.0.0
+info:
+  title: API for Problem
+  description: Rest API provided by Domain Microservice ProblemManagement.
+  version: "1.0"
+servers:
+- url: https://virtserver.swaggerhub.com/Smart_Campus/Problem_API/1.0
+  description: SwaggerHub API Auto Mocking
+- url: https://virtserver.swaggerhub.com/Smart_Campus/Problem_Management/1.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /problems:
+    get:
+      tags:
+      - Problems
+      summary: Get all problems.
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "401":
+          description: unauthorized access.
+  /problems/{pin}:
+    get:
+      tags:
+      - Problems
+      summary: Get all information about a specific problem.
+      parameters:
+      - name: pin
+        in: path
+        description: The Problem Identification Number (PIN) as unique number of a problem.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/pin'
+      responses:
+        "200":
+          description: Sucessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "400":
+          description: invalid pin format.
+        "401":
+          description: unauthorized access.
+        "404":
+          description: problem not found.
+    post:
+      tags:
+      - Problems
+      summary: Add a new Problem.
+      parameters:
+      - name: pin
+        in: path
+        description: The Problem Identification Number (PIN) as unique number of a problem.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/pin'
+      requestBody:
+        $ref: '#/components/requestBodies/problem'
+      responses:
+        "200":
+          description: Sucessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "400":
+          description: invalid arguments.
+        "401":
+          description: unauthorized access.
+    delete:
+      tags:
+      - Problems
+      summary: Delete a problem.
+      parameters:
+      - name: pin
+        in: path
+        description: The Problem Identification Number (PIN) as unique number of a problem.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/pin'
+      responses:
+        "200":
+          description: Succesfully deleted.
+        "400":
+          description: invalid pin format.
+        "401":
+          description: unauthorized access.
+        "404":
+          description: problem not found.
+    patch:
+      tags:
+      - Problems
+      summary: Change information about a specific problem.
+      parameters:
+      - name: pin
+        in: path
+        description: The Problem Identification Number (PIN) as unique number of a problem.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/pin'
+      requestBody:
+        $ref: '#/components/requestBodies/title'
+      responses:
+        "200":
+          description: Sucessful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/problem'
+        "400":
+          description: invalid arguments.
+        "401":
+          description: unauthorized access.
+        "404":
+          description: problem not found.
+components:
+  schemas:
+    pin:
+      minimum: 1
+      type: integer
+      example: 371
+    referenceID:
+      minimum: 1
+      type: integer
+      example: 627
+    title:
+      minimum: 1
+      type: string
+      example: Aufzug defekt
+    description:
+      minimum: 1
+      type: string
+      example: Der Aufzug hat einen technischen Defekt und funktioniert deshalb gerade nicht.
+    state:
+      type: string
+      example: OPEN
+      enum:
+      - OPEN
+      - VERIFIED
+      - CLOSED
+    date:
+      minimum: 1
+      type: string
+      format: date-time
+    reporter:
+      minimum: 1
+      type: string
+      example: Max Mustermann
+    problem:
+      type: object
+      properties:
+        reference:
+          $ref: '#/components/schemas/referenceID'
+        title:
+          $ref: '#/components/schemas/title'
+        description:
+          $ref: '#/components/schemas/description'
+        state:
+          $ref: '#/components/schemas/state'
+        date:
+          $ref: '#/components/schemas/date'
+        reporter:
+          $ref: '#/components/schemas/reporter'
+  responses:
+    problem:
+      description: Sucessful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/problem'
+  parameters:
+    pin:
+      name: pin
+      in: path
+      description: The Problem Identification Number (PIN) as unique number of a problem.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        $ref: '#/components/schemas/pin'
+  requestBodies:
+    problem:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/problem'
+    title:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/title'
