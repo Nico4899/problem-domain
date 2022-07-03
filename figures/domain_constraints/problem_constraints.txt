@@ -1,0 +1,9 @@
+context Problem inv:
+self.referenceIdentificationNumber->notEmpty()
+self.problemState->notEmpty()
+self.problemTitle->notEmpty()
+self.problemDescription->notEmpty()
+self.creationDate->notEmpty()
+self.problemReporter->notEmpty()
+self.identificationNumber->notEmpty()
+self.notificationIdentificationNumber->notEmpty()

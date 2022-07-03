@@ -1,16 +1,6 @@
 # Problem Domain Constraints
 ## Problem
 
-[Problem Constraints](/constraints/Problem.txt)
+[Problem Constraints](/figures/domain_constraints/problem_constraints.txt)
 
-## ProblemState
 
-[ProblemState Constraints](/constraints/ProblemState.txt)
-
-## APIController
-
-[APIController Constraints](/constraints/APIController.txt)
-
-## Filter
-
-[Filter Constraints](/constraints/Filter.txt)

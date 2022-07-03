@@ -1,9 +1,8 @@
-package main.java.edu.kit.tm.cm.smartcampus.problem.api.controller;
+package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
-
-import main.java.edu.kit.tm.cm.smartcampus.problem.api.ProblemApi;
-import main.java.edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemRequest;
-import main.java.edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import edu.kit.tm.cm.smartcampus.problem.api.ProblemApi;
+import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;

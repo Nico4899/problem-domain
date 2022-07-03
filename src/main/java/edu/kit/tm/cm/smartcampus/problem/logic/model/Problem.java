@@ -1,4 +1,4 @@
-package main.java.edu.kit.tm.cm.smartcampus.problem.logic.model;
+package edu.kit.tm.cm.smartcampus.problem.logic.model;
 
 public class Problem {
 }
