@@ -1,4 +1,4 @@
-package main.java.edu.kit.tm.cm.smartcampus.problem;
+package edu.kit.tm.cm.smartcampus.problem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
