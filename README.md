@@ -1,6 +1,6 @@
-# Domain Microservice **`<Name>`** 
+# Domain Microservice **`Problem`** 
 
-`<Description>`
+This domain microservice provides information, and notifications about buildings, their rooms and components, on KIT campus.
 
 *Guidelines for the creation of the artifacts are available in the GitLab documentation [Artifact Guidelines](https://git.scc.kit.edu/cm-tm/cm-team/1-1.cmdocumentation/3.artifactguidelines)*
 
@@ -10,7 +10,7 @@
 
  [Domain Constraints](pages/domain_constraints.md)
 
- [API Specification](pages/api.md) 
+ [API Specification](api/openapi.yaml) 
 
 ## Implementation and Tests
 
