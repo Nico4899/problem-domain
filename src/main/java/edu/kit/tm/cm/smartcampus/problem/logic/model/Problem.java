@@ -1,14 +1,11 @@
 package edu.kit.tm.cm.smartcampus.problem.logic.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
 @EqualsAndHashCode
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Problem {
 
     private String refId;
@@ -17,14 +14,20 @@ public class Problem {
 
     private String nin;
 
-    private String state;
-
+    @NonNull
     private String title;
 
+    @NonNull
     private String description;
 
+    @NonNull
     private String creationData;
 
+    @NonNull
     private String reporter;
+
+    @NonNull
+    private ProblemState state;
+
 
 }
