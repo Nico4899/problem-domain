@@ -21,7 +21,7 @@ public class Problem {
     private String description;
 
     @NonNull
-    private String creationData;
+    private String creationTime;
 
     @NonNull
     private String reporter;

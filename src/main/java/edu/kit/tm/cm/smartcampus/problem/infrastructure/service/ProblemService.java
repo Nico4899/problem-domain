@@ -1,13 +1,12 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
-import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemResponse;
-import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemsResponse;
-import edu.kit.tm.cm.smartcampus.problem.logic.LogicUtils;
+
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 @Service
 public class ProblemService {
@@ -19,27 +18,23 @@ public class ProblemService {
         this.problemRepository = problemRepository;
     }
 
-    public ProblemsResponse getProblems() {
+    public Collection<Problem> getProblems() {
 
-        return new ProblemsResponse(problemRepository.findAll());
+        return problemRepository.findAll();
     }
 
-    public ProblemResponse getProblem(String pin) {
-        return new ProblemResponse(problemRepository.findById(pin).get());
+    public Problem getProblem(String pin) {
+        return problemRepository.findById(pin);
     }
 
-    public ProblemResponse createProblem(ProblemRequest problemRequest) {
+    public Problem createProblem(Problem problem) {
 
-        Problem problem = LogicUtils.convertProblemRequestToProblem(problemRequest);
-        String problemId = problemRepository.create(problem);
-        return new ProblemResponse(problemRepository.findById(problemId).get());
+        return problemRepository.create(problem);
+
     }
 
-    public ProblemResponse editProblem(String pin, ProblemRequest problemRequest) {
-        Problem problem = LogicUtils.convertProblemRequestToProblem(problemRequest);
-        problem.setId(pin);
-        problemRepository.update(problem);
-        return new ProblemResponse(problem);
+    public Problem editProblem(Problem problem) {
+        return problemRepository.update(problem);
 
     }
 

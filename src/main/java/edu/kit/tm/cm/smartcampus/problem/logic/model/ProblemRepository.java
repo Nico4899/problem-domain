@@ -3,18 +3,17 @@ package edu.kit.tm.cm.smartcampus.problem.logic.model;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @Repository
 public interface ProblemRepository {
 
     Collection<Problem> findAll();
 
-    Optional<Problem> findById(String id);
+    Problem findById(String id);
 
-    String create(Problem problem);
+    Problem create(Problem problem);
 
-    Optional<Problem> update(Problem problem);
+    Problem update(Problem problem);
 
     void delete(String pin);
 
