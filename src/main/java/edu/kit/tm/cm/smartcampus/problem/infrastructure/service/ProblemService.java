@@ -1,4 +1,4 @@
-package edu.kit.tm.cm.smartcampus.problem.logic.operations;
+package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
 import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemResponse;
@@ -9,15 +9,13 @@ import edu.kit.tm.cm.smartcampus.problem.logic.model.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-
 @Service
-public class ProblemOperations {
+public class ProblemService {
 
     private final ProblemRepository problemRepository;
 
     @Autowired
-    public ProblemOperations(ProblemRepository problemRepository) {
+    public ProblemService(ProblemRepository problemRepository) {
         this.problemRepository = problemRepository;
     }
 
