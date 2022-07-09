@@ -23,7 +23,7 @@ public interface ProblemApi {
     Problem getProblem(@PathVariable String pin);
 
     @PutMapping("/problems/{pin}")
-    Problem editProblem(Problem problem);
+    Problem updateProblem(String pin, Problem problem);
 
     @DeleteMapping("/problems/{pin}")
     void deleteProblem(@PathVariable String pin);
