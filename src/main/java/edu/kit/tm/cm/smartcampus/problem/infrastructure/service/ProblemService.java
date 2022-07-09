@@ -4,7 +4,6 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NotFoundException;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.ProblemRepository;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
