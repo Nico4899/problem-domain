@@ -5,10 +5,10 @@ Describes the possible states of a problem
  */
 public enum ProblemState {
 
-    OPEN,
-    ACCEPTED,
-    IN_PROGRESS,
-    DECLINED,
-    CLOSED
+  OPEN,
+  ACCEPTED,
+  IN_PROGRESS,
+  DECLINED,
+  CLOSED
 
 }

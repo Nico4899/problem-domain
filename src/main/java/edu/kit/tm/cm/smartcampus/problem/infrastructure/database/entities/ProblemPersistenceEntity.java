@@ -7,22 +7,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Problem")
+@Table(name = "Problem")
 public class ProblemPersistenceEntity {
 
-    @Id
-    private String id;
+  @Id
+  private String id;
 
-    private String refId;
+  private String refId;
 
-    private String nin;
+  private String nin;
 
-    private String title;
+  private String title;
 
-    private String creationTime;
+  private String creationTime;
 
-    private String reporter;
+  private String reporter;
 
-    private ProblemState state;
+  private ProblemState state;
 
 }

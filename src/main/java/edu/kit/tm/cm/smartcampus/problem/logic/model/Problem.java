@@ -8,26 +8,26 @@ import lombok.*;
 @RequiredArgsConstructor
 public class Problem {
 
-    private String refId;
+  private String refId;
 
-    private String id;
+  private String id;
 
-    private String nin;
+  private String nin;
 
-    @NonNull
-    private String title;
+  @NonNull
+  private String title;
 
-    @NonNull
-    private String description;
+  @NonNull
+  private String description;
 
-    @NonNull
-    private String creationTime;
+  @NonNull
+  private String creationTime;
 
-    @NonNull
-    private String reporter;
+  @NonNull
+  private String reporter;
 
-    @NonNull
-    private ProblemState state;
+  @NonNull
+  private ProblemState state;
 
 
 }

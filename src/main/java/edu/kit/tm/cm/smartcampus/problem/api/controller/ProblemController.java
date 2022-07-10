@@ -1,6 +1,7 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
 import edu.kit.tm.cm.smartcampus.problem.api.ProblemApi;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NotFoundException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.ProblemService;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
@@ -16,55 +17,38 @@ import java.util.Collection;
 @RestController
 public class ProblemController implements ProblemApi {
 
-    private final ProblemService problemService;
+  private final ProblemService problemService;
 
-    @Autowired
-    public ProblemController(ProblemService problemService) {
-        this.problemService = problemService;
-    }
+  @Autowired
+  public ProblemController(ProblemService problemService) {
+    this.problemService = problemService;
+  }
 
-    @Override
-    public Collection<Problem> listProblems() {
-        return problemService.getProblems();
-    }
+  @Override
+  public Collection<Problem> listProblems() {
+    return problemService.getProblems();
+  }
 
-    @Override
-    public Problem createProblem(Problem problem) {
-        return problemService.createProblem(problem);
-    }
+  @Override
+  public Problem createProblem(Problem problem) {
+    return problemService.createProblem(problem);
+  }
 
-    @Override
-    public Problem getProblem(String pin) {
-        try {
-            return problemService.getProblem(pin);
-        } catch (NotFoundException e) {
-            handleNotFoundException(e);
-        }
-        return null;
-    }
+  @Override
+  public Problem getProblem(String pin) throws InvalidArgumentsException, NotFoundException {
+      return problemService.getProblem(pin);
 
-    @Override
-    public Problem updateProblem(String pin, Problem problem) {
-        return problemService.updateProblem(pin, problem);
-    }
+  }
 
-    @Override
-    public void deleteProblem(String pin) {
-        problemService.deleteProblem(pin);
-    }
+  @Override
+  public Problem updateProblem(Problem problem) throws NotFoundException {
+    return problemService.updateProblem(problem);
+  }
 
-    //@ExceptionHandler(NotFoundException.class)
-    //public
-
-    @ExceptionHandler(NotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<String> handleNotFoundException(
-            NotFoundException exception
-    ) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(exception.getMessage());
-    }
+  @Override
+  public void deleteProblem(String pin) throws NotFoundException {
+    problemService.deleteProblem(pin);
+  }
 
 
 }
