@@ -14,7 +14,7 @@ paths:
         - Problems
       responses:
         200:
-          $ref: '#/components/responses/problems_response'
+          $ref: '#/components/responses/problem'
         400:
           description: invalid request message framing.
         404:
@@ -25,10 +25,10 @@ paths:
       tags:
         - Problems
       requestBody:
-        $ref: '#/components/requestBodies/problem_request'
+        $ref: '#/components/requestBodies/problem'
       responses:
         200:
-          $ref: '#/components/responses/problem_response'
+          $ref: '#/components/responses/problem'
         400:
           description: invalid request message framing.
         401:
@@ -46,7 +46,7 @@ paths:
         - Problems
       responses:
         200:
-          $ref: '#/components/responses/problem_response'
+          $ref: '#/components/responses/problem'
         400:
           description: invalid request message framing.
         404:
@@ -58,10 +58,10 @@ paths:
       tags:
         - Problems
       requestBody:
-        $ref: '#/components/requestBodies/problem_request'
+        $ref: '#/components/requestBodies/problem'
       responses:
         200:
-          $ref: '#/components/responses/problem_response'
+          $ref: '#/components/responses/problem'
         400:
           description: invalid request message framing.
         401:
@@ -87,27 +87,21 @@ components:
 
   requestBodies:
 
-    problem_request:
+    problem:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/problem_request'
+            $ref: '#/components/schemas/problem'
 
   responses:
 
-    problem_response:
+    problem:
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/problem_response'
+            $ref: '#/components/schemas/problem'
 
-    problems_response:
-      description: Successful operation
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/problems_response'
 
   parameters:
 
@@ -159,47 +153,3 @@ components:
         - in_progress
         - open
         - closed
-
-    problems:
-      type: array
-      items:
-        $ref: '#/components/schemas/problem'
-
-    # single request and response schemas
-
-    problem_request:
-      type: object
-      properties:
-        reference_identification_number:
-          type: string
-          example: "b-234"
-        notification_identification_number:
-          type: string
-          example: "n-232"
-        problem_state:
-          $ref: '#/components/schemas/problem_state'
-        problem_title:
-          type: string
-          example: "Elevator is stuck"
-        problem_description:
-          type: string
-          example: "in 2. floor"
-        creation_date:
-          type: string
-          format: date
-        problem_reporter:
-          type: string
-          example: "uxxxx@student.kit.edu"
-
-    problem_response:
-      type: object
-      properties:
-        problem:
-          $ref: '#/components/schemas/problem'
-
-    problems_response:
-      type: object
-      properties:
-        problems:
-          $ref: '#/components/schemas/problems'
-
