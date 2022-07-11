@@ -6,10 +6,6 @@ import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NotFoundExcep
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.ProblemService;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
@@ -35,8 +31,8 @@ public class ProblemController implements ProblemApi {
   }
 
   @Override
-  public Problem getProblem(String pin) throws InvalidArgumentsException, NotFoundException {
-      return problemService.getProblem(pin);
+  public Problem getProblem(String pin) throws InvalidArgumentsException, NotFoundException { //TODO exceptions handler
+    return problemService.getProblem(pin);
 
   }
 

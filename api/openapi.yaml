@@ -36,7 +36,7 @@ paths:
         404:
           description: Requested data doesn't exist.
     put:
-      summary: Update a building
+      summary: Update a problem
       description: Update a specific building from the domain database.
       tags:
         - Problems

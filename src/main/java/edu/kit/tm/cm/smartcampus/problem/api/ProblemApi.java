@@ -14,11 +14,11 @@ public interface ProblemApi {
   @PostMapping("/problems")
   Problem createProblem(Problem problem);
 
+  @PutMapping("/problems")
+  Problem updateProblem(Problem problem);
+
   @GetMapping("/problems/{pin}")
   Problem getProblem(@PathVariable String pin);
-
-  @PutMapping("/problems/{pin}")
-  Problem updateProblem(Problem problem);
 
   @DeleteMapping("/problems/{pin}")
   void deleteProblem(@PathVariable String pin);
