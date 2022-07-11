@@ -86,7 +86,6 @@ paths:
 components:
 
   requestBodies:
-
     problem:
       content:
         application/json:
@@ -94,7 +93,6 @@ components:
             $ref: '#/components/schemas/problem'
 
   responses:
-
     problem:
       description: Successful operation
       content:
