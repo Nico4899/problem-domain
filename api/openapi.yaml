@@ -35,23 +35,6 @@ paths:
           description: unauthorized access.
         404:
           description: Requested data doesn't exist.
-
-  /problems/{pin}:
-    parameters:
-      - $ref: '#/components/parameters/pin'
-    get:
-      summary: Get a problem
-      description: Get a specific problem from the domain database.
-      tags:
-        - Problems
-      responses:
-        200:
-          $ref: '#/components/responses/problem'
-        400:
-          description: invalid request message framing.
-        404:
-          description: Requested data doesn't exist.
-
     put:
       summary: Update a building
       description: Update a specific building from the domain database.
@@ -66,6 +49,22 @@ paths:
           description: invalid request message framing.
         401:
           description: unauthorized access.
+        404:
+          description: Requested data doesn't exist.
+
+  /problems/{pin}:
+    parameters:
+      - $ref: '#/components/parameters/pin'
+    get:
+      summary: Get a problem
+      description: Get a specific problem from the domain database.
+      tags:
+        - Problems
+      responses:
+        200:
+          $ref: '#/components/responses/problem'
+        400:
+          description: invalid request message framing.
         404:
           description: Requested data doesn't exist.
     delete:
@@ -100,7 +99,6 @@ components:
           schema:
             $ref: '#/components/schemas/problem'
 
-
   parameters:
 
     pin:
@@ -113,6 +111,13 @@ components:
         $ref: '#/components/schemas/pin'
 
   schemas:
+
+    # single value schemas
+
+    pin:
+      type: string
+      example: p-371
+      minimum: 1
 
     # multi value schemas
 
