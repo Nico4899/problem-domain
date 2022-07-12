@@ -2,7 +2,7 @@ package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
 import edu.kit.tm.cm.smartcampus.problem.api.ProblemApi;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NotFoundException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NoSuchElementFoundException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.ProblemService;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +31,17 @@ public class ProblemController implements ProblemApi {
   }
 
   @Override
-  public Problem getProblem(String pin) throws InvalidArgumentsException, NotFoundException { //TODO exceptions handler
+  public Problem getProblem(String pin) {
     return problemService.getProblem(pin);
-
   }
 
   @Override
-  public Problem updateProblem(Problem problem) throws NotFoundException {
+  public Problem updateProblem(Problem problem) {
     return problemService.updateProblem(problem);
   }
 
   @Override
-  public void deleteProblem(String pin) throws NotFoundException {
+  public void deleteProblem(String pin) {
     problemService.deleteProblem(pin);
   }
 

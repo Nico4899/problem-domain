@@ -2,7 +2,7 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
 
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NotFoundException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NoSuchElementFoundException;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @Service
 public class ProblemService {
@@ -29,14 +30,15 @@ public class ProblemService {
     return problems;
   }
 
-  public Problem getProblem(String pin) throws NotFoundException, InvalidArgumentsException {
+  public Problem getProblem(String pin) throws NoSuchElementFoundException, InvalidArgumentsException {
     if (!pin.matches(PIN_PATTERN)) {
       throw new InvalidArgumentsException("Problem identification number: ", pin, "should match " + PIN_PATTERN, true);
     }
-    if (problemRepository.findById(pin).isEmpty()) {
-      throw new NotFoundException();
+    Optional<Problem> optionalProblem = problemRepository.findById(pin);
+    if (optionalProblem.isEmpty()) {
+      throw new NoSuchElementFoundException();
     }
-    return problemRepository.findById(pin).get();
+    return optionalProblem.get();
   }
 
   public Problem createProblem(Problem problem) {
@@ -45,14 +47,17 @@ public class ProblemService {
 
   public Problem updateProblem(Problem problem) {
     if (problemRepository.findById(problem.getId()).isEmpty()) {
-      throw new NotFoundException();
+      throw new NoSuchElementFoundException();
     }
     return problemRepository.save(problem);
   }
 
   public void deleteProblem(String pin) {
+    if (!pin.matches(PIN_PATTERN)) {
+      throw new InvalidArgumentsException("Problem identification number: ", pin, "should match " + PIN_PATTERN, true);
+    }
     if (problemRepository.findById(pin).isEmpty()) {
-      throw new NotFoundException();
+      throw new NoSuchElementFoundException();
     }
     problemRepository.deleteById(pin);
   }
