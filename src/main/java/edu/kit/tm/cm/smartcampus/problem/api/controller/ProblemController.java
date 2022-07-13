@@ -1,8 +1,6 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
 import edu.kit.tm.cm.smartcampus.problem.api.ProblemApi;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NoSuchElementFoundException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.ProblemService;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class ProblemController implements ProblemApi {
 
   @Override
   public Collection<Problem> listProblems() {
-    return problemService.getProblems();
+    return problemService.listProblems();
   }
 
   @Override
@@ -41,7 +39,7 @@ public class ProblemController implements ProblemApi {
   }
 
   @Override
-  public void deleteProblem(String pin) {
+  public void removeProblem(String pin) {
     problemService.deleteProblem(pin);
   }
 
