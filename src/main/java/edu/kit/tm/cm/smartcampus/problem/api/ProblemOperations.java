@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RequestMapping("/problems")
-public interface ProblemApi {
+public interface ProblemOperations {
 
   @GetMapping("")
   Collection<Problem> listProblems();
