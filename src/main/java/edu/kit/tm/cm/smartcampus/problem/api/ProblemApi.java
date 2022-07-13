@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RequestMapping
+@RequestMapping("/problems")
 public interface ProblemApi {
 
-  @GetMapping("/problems")
+  @GetMapping("")
   Collection<Problem> listProblems();
 
-  @PostMapping("/problems")
+  @PostMapping("")
   Problem createProblem(Problem problem);
 
-  @PutMapping("/problems")
+  @PutMapping("")
   Problem updateProblem(Problem problem);
 
-  @GetMapping("/problems/{pin}")
+  @GetMapping("/{pin}")
   Problem getProblem(@PathVariable String pin);
 
-  @DeleteMapping("/problems/{pin}")
-  void deleteProblem(@PathVariable String pin);
+  @DeleteMapping("/{pin}")
+  void removeProblem(@PathVariable String pin);
 
 }

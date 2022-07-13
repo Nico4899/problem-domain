@@ -4,7 +4,7 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NoSuchElementFoundException;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
-import edu.kit.tm.cm.smartcampus.problem.logic.model.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class ProblemService {
     this.problemRepository = problemRepository;
   }
 
-  public Collection<Problem> getProblems() {
+  public Collection<Problem> listProblems() {
     Collection<Problem> problems = new ArrayList<>();
     for (Problem problem : problemRepository.findAll()) problems.add(problem);
     return problems;
@@ -52,9 +52,9 @@ public class ProblemService {
     return problemRepository.save(problem);
   }
 
-  public void deleteProblem(String pin) {
+  public void removeProblem(String pin) {
     if (!pin.matches(PIN_PATTERN)) {
-      throw new InvalidArgumentsException("Problem identification number: ", pin, "should match " + PIN_PATTERN, true);
+      throw new InvalidArgumentsException("Problem identification number: ", pin, "should match: " + PIN_PATTERN, true);
     }
     if (problemRepository.findById(pin).isEmpty()) {
       throw new NoSuchElementFoundException();

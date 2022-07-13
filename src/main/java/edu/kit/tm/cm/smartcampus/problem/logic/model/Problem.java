@@ -1,59 +1,53 @@
 package edu.kit.tm.cm.smartcampus.problem.logic.model;
 
-import com.sun.istack.NotNull;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
+import java.sql.Timestamp;
 
 @Setter
 @Getter
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "Problem")
+@Entity(name = "problem")
 public class Problem {
-
-  @NonNull
-  private String refId;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "problem_sequence")
   @SequenceGenerator(name = "problem_sequence", allocationSize = 1)
   @GenericGenerator(
-          name = "problem_sequence",
-          strategy =
-                  "edu/kit/tm/cm/smartcampus/building/infrastructure/database/PrefixSequenceGenerator.java",
-          parameters = {
-                  @org.hibernate.annotations.Parameter(
-                          name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
-                          value = "p-")
-          })
-  @Column(
-          nullable = false,
-          updatable = false,
-          columnDefinition = "TEXT")
-  private String id;
+      name = "problem_sequence",
+      strategy =
+          "edu/kit/tm/cm/smartcampus/building/infrastructure/database/PrefixSequenceGenerator.java",
+      parameters = {
+        @org.hibernate.annotations.Parameter(
+            name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
+            value = "p-")
+      })
+  @Column(name = "identification_number")
+  private String identificationNumber;
 
-  @NonNull
-  private String nin;
+  @Column(name = "notification_identification_number")
+  private String notificationIdentificationNumber;
 
-  @NonNull
-  private String title;
+  @Column(name = "priblem_title")
+  private String problemTitle;
 
-  @NonNull
-  private String description;
+  @Column(name = "problem_description")
+  private String problemDescription;
 
-  @NonNull
-  private String creationTime;
+  @Column(name = "creation_time")
+  private Timestamp creationTime;
 
-  @NonNull
-  private String reporter;
+  @Column(name = "problem_reporter")
+  private String problemReporter;
 
-  @NonNull
-  private ProblemState state;
+  @Column(name = "problem_state")
+  private ProblemState problemState;
 
+  @Column(name = "reference_identification_number")
+  private String referenceIdentificationNumber;
 }
