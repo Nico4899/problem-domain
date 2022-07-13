@@ -46,7 +46,7 @@ public class ProblemService {
   }
 
   public Problem updateProblem(Problem problem) {
-    if (problemRepository.findById(problem.getId()).isEmpty()) {
+    if (problemRepository.findById(problem.getIdentificationNumber()).isEmpty()) {
       throw new NoSuchElementFoundException();
     }
     return problemRepository.save(problem);
