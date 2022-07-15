@@ -1,9 +1,9 @@
 package edu.kit.tm.cm.smartcampus.problem.api.validator;
 
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
 import org.springframework.data.util.Pair;
 
 import java.util.Collection;
-import java.util.Optional;
 
 /**
  * Class representing a validator which checks given inputs and thereby validates them.
@@ -19,45 +19,44 @@ public final class Validator {
    * Validates weather objects are not null or not.
    *
    * @param objects objects to be checked and their names (<object, name>)
-   * @return an Optional object which holds a String if a null object was found
+   * @throws NullPointerException if one of the objects is null
    */
-  public static Optional<String> validateNotNull(Collection<Pair<Object, String>> objects) {
+  public static void validateNotNull(Collection<Pair<Object, String>> objects) throws NullPointerException {
     for (Pair<Object, String> p : objects) {
       if (p.getFirst() == null) {
-        return Optional.of(p.getSecond() + " is null");
+        throw new NullPointerException(p.getSecond() + " is null");
       }
     }
-    return Optional.empty();
   }
 
   /**
    * Validates weather Strings are not empty or not.
    *
    * @param strings strings to be checked and their names (<string, name>)
-   * @return an Optional object which holds a String if an empty object was found
+   * @throws InvalidArgumentsException if an empty object was found
    */
-  public static Optional<String> validateNotEmpty(Collection<Pair<String, String>> strings) {
+  public static void validateNotEmpty(Collection<Pair<String, String>> strings) throws InvalidArgumentsException {
     for (Pair<String, String> p : strings) {
       if (p.getFirst().isEmpty()) {
-        return Optional.of(p.getSecond() + " is empty");
+        throw new InvalidArgumentsException(p.getSecond(), "", "should not be empty", true);
       }
     }
-    return Optional.empty();
   }
 
   /**
    * Validates weather Strings match given regexes or not.
    *
    * @param strings strings and their regexes to be checked and their names (<<string,regex>, name>)
-   * @return an Optional object which holds a String if a string did not match its regex
+   * @throws InvalidArgumentsException if a string did not match its regex
    */
-  public static Optional<String> validateMatchesRegex(Collection<Pair<Pair<String, String>, String>> strings) {
+  public static void validateMatchesRegex(Collection<Pair<Pair<String, String>, String>> strings)
+      throws InvalidArgumentsException {
     for (Pair<Pair<String, String>, String> p : strings) {
       if (!p.getFirst().getFirst().matches(p.getFirst().getSecond())) {
-        return Optional.of(p.getSecond() + "does not match the regex " + p.getFirst().getSecond() + " ");
+        throw new InvalidArgumentsException(p.getSecond() + " ", p.getFirst().getFirst(),
+            " does not match the regex " + p.getFirst().getSecond(), true);
       }
     }
-    return Optional.empty();
   }
 
 }
