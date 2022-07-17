@@ -9,7 +9,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler { //TODO InternalServerErrorException
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(InvalidArgumentsException.class)
   protected ResponseEntity<Object> handleInvalidArgumentException(InvalidArgumentsException ex, WebRequest request) {
