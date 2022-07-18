@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -20,6 +20,8 @@ public class ProblemService {
 
   private static final String PIN_PATTERN = "^p-\\d+$";
   private static final String NIN_PATTERN = "^n-\\d+$";
+
+  private static final String RIN_PATTERN = ""; //TODO!
 
   private final ProblemRepository problemRepository;
 
@@ -68,30 +70,32 @@ public class ProblemService {
     problemRepository.deleteById(pin);
   }
 
-  public void validateProblem(Problem problem) { //TODO muss man dann trotzdem in der Signatur @throws stehen haben?
-    validator.validateNotNull(List.of(
-        Pair.of(problem.getProblemDescription(), "problem description"),
-        Pair.of(problem.getProblemReporter(), "problem reporter"),
-        Pair.of(problem.getProblemState(), "problem state"),
-        Pair.of(problem.getProblemTitle(), "problem title"),
-        Pair.of(problem.getIdentificationNumber(), "problem identification number"),
-        Pair.of(problem.getCreationTime(), "problem creation time"),
-        Pair.of(problem.getNotificationIdentificationNumber(), "problem notification identification number"),
-        Pair.of(problem.getReferenceIdentificationNumber(), "problem reference identification number")));
-    validator.validateNotEmpty(List.of(
-        Pair.of(problem.getProblemDescription(), "problem description"),
-        Pair.of(problem.getProblemReporter(), "problem reporter"),
-        Pair.of(problem.getProblemTitle(), "problem title")));
-    validator.validateMatchesRegex(List.of(
-        Pair.of(Pair.of(problem.getIdentificationNumber(), PIN_PATTERN), "problem identification number"),
-        Pair.of(Pair.of(problem.getNotificationIdentificationNumber(), NIN_PATTERN),
-            "problem notification identification number")
-        /*Pair.of(problem.getReferenceIdentificationNumber(), "problem reference identification number")*/));
+  public void validateProblem(Problem problem) {
+    validator.validateNotNull(Map.of(
+        "problem description", problem.getProblemDescription(),
+        "problem reporter", problem.getProblemReporter(),
+        "problem state", problem.getProblemState(),
+        "problem title", problem.getProblemTitle(),
+        "problem identification number", problem.getIdentificationNumber(),
+        "problem creation time", problem.getCreationTime(),
+        "problem notification identification number", problem.getNotificationIdentificationNumber(),
+        "problem reference identification number", problem.getReferenceIdentificationNumber()));
+
+    validator.validateNotEmpty(Map.of(
+        "problem description", problem.getProblemDescription(),
+        "problem reporter", problem.getProblemReporter(),
+        "problem title", problem.getProblemTitle()));
+
+    validator.validateMatchesRegex(Map.of(
+        "problem identification number", Pair.of(problem.getIdentificationNumber(), PIN_PATTERN),
+        "problem notification identification number",
+        Pair.of(problem.getNotificationIdentificationNumber(), NIN_PATTERN),
+        "problem reference identification number", Pair.of(problem.getReferenceIdentificationNumber(), RIN_PATTERN)));
   }
 
   public void validatePin(String pin) {
-    validator.validateNotNull(List.of(Pair.of(pin, "pin")));
-    validator.validateMatchesRegex(List.of(Pair.of(Pair.of(pin, PIN_PATTERN), "pin")));
+    validator.validateNotNull(Map.of("pin", pin));
+    validator.validateMatchesRegex(Map.of("pin", Pair.of(pin, PIN_PATTERN)));
   }
 
 }
