@@ -19,14 +19,14 @@ public class Problem {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "problem_sequence")
   @SequenceGenerator(name = "problem_sequence", allocationSize = 1)
   @GenericGenerator(
-      name = "problem_sequence",
-      strategy =
-          "edu/kit/tm/cm/smartcampus/building/infrastructure/database/PrefixSequenceGenerator.java",
-      parameters = {
-        @org.hibernate.annotations.Parameter(
-            name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
-            value = "p-")
-      })
+          name = "problem_sequence",
+          strategy =
+                  "edu/kit/tm/cm/smartcampus/building/infrastructure/database/PrefixSequenceGenerator.java",
+          parameters = {
+                  @org.hibernate.annotations.Parameter(
+                          name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
+                          value = "p-")
+          })
   @Column(name = "identification_number")
   private String identificationNumber;
 

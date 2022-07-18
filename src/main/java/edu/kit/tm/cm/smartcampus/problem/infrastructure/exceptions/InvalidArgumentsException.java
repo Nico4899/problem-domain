@@ -1,13 +1,12 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-/** Exception thrown on invalid arguments. */
+/**
+ * Exception thrown on invalid arguments.
+ */
 public class InvalidArgumentsException extends RuntimeException {
 
   private static final String INVALID_ARGUMENTS_EXCEPTION_MESSAGE =
-      "Arguments are Invalid! Please check the following: %s";
+          "Arguments are Invalid! Please check the following: %s";
 
   public static final String COLON = ": ";
   public static final String LEFT_PARENTHESIS = "(";
@@ -35,14 +34,14 @@ public class InvalidArgumentsException extends RuntimeException {
     }
     if (hasHint) {
       invalidArguments +=
-          invalidArguments
-              + COMMA
-              + name
-              + COLON
-              + input
-              + LEFT_PARENTHESIS
-              + hint
-              + RIGHT_PARENTHESIS;
+              invalidArguments
+                      + COMMA
+                      + name
+                      + COLON
+                      + input
+                      + LEFT_PARENTHESIS
+                      + hint
+                      + RIGHT_PARENTHESIS;
     } else {
       invalidArguments += invalidArguments + COMMA + name + COLON + input;
     }

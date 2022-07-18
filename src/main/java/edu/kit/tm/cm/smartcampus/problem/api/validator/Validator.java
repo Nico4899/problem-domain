@@ -21,7 +21,7 @@ public final class Validator {
    * @param objects objects to be checked and their names (<object, name>)
    * @throws NullPointerException if one of the objects is null
    */
-  public static void validateNotNull(Collection<Pair<Object, String>> objects) throws NullPointerException {
+  public static void validateNotNull(Collection<Pair<Object, String>> objects) throws NullPointerException { //TODO null geht net
     for (Pair<Object, String> p : objects) {
       if (p.getFirst() == null) {
         throw new NullPointerException(p.getSecond() + " is null");
@@ -50,11 +50,11 @@ public final class Validator {
    * @throws InvalidArgumentsException if a string did not match its regex
    */
   public static void validateMatchesRegex(Collection<Pair<Pair<String, String>, String>> strings)
-      throws InvalidArgumentsException {
+          throws InvalidArgumentsException {
     for (Pair<Pair<String, String>, String> p : strings) {
       if (!p.getFirst().getFirst().matches(p.getFirst().getSecond())) {
         throw new InvalidArgumentsException(p.getSecond() + " ", p.getFirst().getFirst(),
-            " does not match the regex " + p.getFirst().getSecond(), true);
+                " does not match the regex " + p.getFirst().getSecond(), true);
       }
     }
   }

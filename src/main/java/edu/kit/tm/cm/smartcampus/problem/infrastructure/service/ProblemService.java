@@ -67,23 +67,23 @@ public class ProblemService {
 
   public void validateProblem(Problem problem) { //TODO muss man dann trotzdem in der Signatur @throws stehen haben?
     Validator.validateNotNull(List.of(
-        Pair.of(problem.getProblemDescription(), "problem description"),
-        Pair.of(problem.getProblemReporter(), "problem reporter"),
-        Pair.of(problem.getProblemState(), "problem state"),
-        Pair.of(problem.getProblemTitle(), "problem title"),
-        Pair.of(problem.getIdentificationNumber(), "problem identification number"),
-        Pair.of(problem.getCreationTime(), "problem creation time"),
-        Pair.of(problem.getNotificationIdentificationNumber(), "problem notification identification number"),
-        Pair.of(problem.getReferenceIdentificationNumber(), "problem reference identification number")));
+            Pair.of(problem.getProblemDescription(), "problem description"),
+            Pair.of(problem.getProblemReporter(), "problem reporter"),
+            Pair.of(problem.getProblemState(), "problem state"),
+            Pair.of(problem.getProblemTitle(), "problem title"),
+            Pair.of(problem.getIdentificationNumber(), "problem identification number"),
+            Pair.of(problem.getCreationTime(), "problem creation time"),
+            Pair.of(problem.getNotificationIdentificationNumber(), "problem notification identification number"),
+            Pair.of(problem.getReferenceIdentificationNumber(), "problem reference identification number")));
     Validator.validateNotEmpty(List.of(
-        Pair.of(problem.getProblemDescription(), "problem description"),
-        Pair.of(problem.getProblemReporter(), "problem reporter"),
-        Pair.of(problem.getProblemTitle(), "problem title")));
+            Pair.of(problem.getProblemDescription(), "problem description"),
+            Pair.of(problem.getProblemReporter(), "problem reporter"),
+            Pair.of(problem.getProblemTitle(), "problem title")));
     Validator.validateMatchesRegex(List.of(
-        Pair.of(Pair.of(problem.getIdentificationNumber(), PIN_PATTERN), "problem identification number"),
-        Pair.of(Pair.of(problem.getNotificationIdentificationNumber(), NIN_PATTERN),
-            "problem notification identification number")
-        /*Pair.of(problem.getReferenceIdentificationNumber(), "problem reference identification number")*/));
+            Pair.of(Pair.of(problem.getIdentificationNumber(), PIN_PATTERN), "problem identification number"),
+            Pair.of(Pair.of(problem.getNotificationIdentificationNumber(), NIN_PATTERN),
+                    "problem notification identification number")
+            /*Pair.of(problem.getReferenceIdentificationNumber(), "problem reference identification number")*/));
   }
 
   public void validatePin(String pin) {
