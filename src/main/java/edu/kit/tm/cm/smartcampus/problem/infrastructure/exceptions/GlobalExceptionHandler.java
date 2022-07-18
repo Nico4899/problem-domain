@@ -13,25 +13,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(InvalidArgumentsException.class)
   protected ResponseEntity<Object> handleInvalidArgumentException(InvalidArgumentsException ex, WebRequest request) {
-    //TODO logging?
     return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
   }
 
   @ExceptionHandler(NoSuchElementFoundException.class)
   protected ResponseEntity<Object> handleNoSuchElementFoundException(NoSuchElementFoundException ex, WebRequest request) {
-    //logging?
     return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
   }
 
   @ExceptionHandler(InternalServerErrorException.class)
   protected ResponseEntity<Object> handleInternalServerErrorException(InternalServerErrorException ex, WebRequest request) {
-    //logging?
     return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
   }
 
   @ExceptionHandler(UnauthorizedAccessException.class)
   protected ResponseEntity<Object> handleUnauthorizedAccessException(UnauthorizedAccessException ex, WebRequest request) {
-    //logging?
     return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
   }
 
