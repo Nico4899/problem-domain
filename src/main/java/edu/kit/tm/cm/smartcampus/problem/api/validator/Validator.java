@@ -1,15 +1,15 @@
 package edu.kit.tm.cm.smartcampus.problem.api.validator;
 
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
+import lombok.AllArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-/**
- * Class representing a validator which checks given inputs and thereby validates them.
- */
+/** Class representing a validator which checks given inputs and thereby validates them. */
 @Component
+@AllArgsConstructor
 public class Validator {
 
   /**
@@ -24,7 +24,8 @@ public class Validator {
 
     for (Map.Entry<String, Object> entry : objects.entrySet()) {
       if (entry.getValue() == null) {
-        invalidArgumentsException.appendWrongArguments(entry.getKey(), "is null", "", false);
+        invalidArgumentsException.appendWrongArguments(
+            entry.getKey(), "null", "should not be null", true);
         valid = false;
       }
     }
@@ -46,7 +47,8 @@ public class Validator {
 
     for (Map.Entry<String, String> entry : strings.entrySet()) {
       if (!entry.getValue().isEmpty()) {
-        invalidArgumentsException.appendWrongArguments(entry.getKey(), "is empty", "", false);
+        invalidArgumentsException.appendWrongArguments(
+            entry.getKey() + ": ", entry.getValue(), "should not be empty", true);
         valid = false;
       }
     }
@@ -59,8 +61,8 @@ public class Validator {
   /**
    * Validates weather Strings match given regexes or not.
    *
-   * @param strings Map of strings and their regexes to be checked and their names (key=name, value=pair of string
-   *                and regex)
+   * @param strings Map of strings and their regexes to be checked and their names (key=name,
+   *     value=pair of string and regex)
    * @throws InvalidArgumentsException if a string did not match its regex
    */
   public void validateMatchesRegex(Map<String, Pair<String, String>> strings)
@@ -70,8 +72,11 @@ public class Validator {
 
     for (Map.Entry<String, Pair<String, String>> entry : strings.entrySet()) {
       if (!entry.getValue().getFirst().matches(entry.getValue().getSecond())) {
-        invalidArgumentsException.appendWrongArguments(entry.getKey(), "does not have the right format",
-            "should match: " + entry.getValue().getSecond(), true);
+        invalidArgumentsException.appendWrongArguments(
+            entry.getKey(),
+            entry.getValue().getFirst(),
+            "should match: " + entry.getValue().getSecond(),
+            true);
         valid = false;
       }
     }
@@ -80,5 +85,4 @@ public class Validator {
       throw invalidArgumentsException;
     }
   }
-
 }

@@ -1,8 +1,5 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 /** Exception thrown on invalid arguments. */
 public class InvalidArgumentsException extends RuntimeException {
 
