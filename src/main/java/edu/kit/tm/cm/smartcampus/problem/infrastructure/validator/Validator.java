@@ -1,4 +1,4 @@
-package edu.kit.tm.cm.smartcampus.problem.api.validator;
+package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class Validator {
    * @param objects Map of objects to be checked and their names (key=name, value=object)
    * @throws NullPointerException if one of the objects is null
    */
-  public void validateNotNull(Map<String, Object> objects) throws NullPointerException {
+  public void validateNotNull(Map<String, Object> objects) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
     boolean valid = true;
 
@@ -41,7 +41,7 @@ public class Validator {
    * @param strings Map of strings to be checked and their names (key=name, value=string)
    * @throws InvalidArgumentsException if an empty object was found
    */
-  public void validateNotEmpty(Map<String, String> strings) throws InvalidArgumentsException {
+  public void validateNotEmpty(Map<String, String> strings) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
     boolean valid = true;
 
@@ -65,8 +65,7 @@ public class Validator {
    *     value=pair of string and regex)
    * @throws InvalidArgumentsException if a string did not match its regex
    */
-  public void validateMatchesRegex(Map<String, Pair<String, String>> strings)
-      throws InvalidArgumentsException {
+  public void validateMatchesRegex(Map<String, Pair<String, String>> strings) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
     boolean valid = true;
 
