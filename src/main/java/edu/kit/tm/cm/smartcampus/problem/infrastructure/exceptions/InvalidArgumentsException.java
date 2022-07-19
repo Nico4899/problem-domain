@@ -3,23 +3,16 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions;
 /** Exception thrown on invalid arguments. */
 public class InvalidArgumentsException extends RuntimeException {
 
-  private static final String INVALID_ARGUMENTS_EXCEPTION_MESSAGE =
-      "Arguments are Invalid! Please check the following: %s";
-
   public static final String COLON = ": ";
   public static final String LEFT_PARENTHESIS = "(";
   public static final String RIGHT_PARENTHESIS = ")";
   public static final String COMMA = ", ";
-
+  private static final String INVALID_ARGUMENTS_EXCEPTION_MESSAGE =
+      "Arguments are Invalid! Please check the following: %s";
   private String invalidArguments;
 
   public InvalidArgumentsException() {
     super();
-  }
-
-  public InvalidArgumentsException(String name, String input, String hint, boolean hasHint) {
-    super();
-    this.appendWrongArguments(name, input, hint, hasHint);
   }
 
   public void appendWrongArguments(String name, String input, String hint, boolean hasHint) {

@@ -1,10 +1,10 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
 
-import edu.kit.tm.cm.smartcampus.problem.api.validator.Validator;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.Validator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.NoSuchElementFoundException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
@@ -39,12 +39,12 @@ public class ProblemService {
     return problems;
   }
 
-  public Problem getProblem(String pin) throws NoSuchElementFoundException, InvalidArgumentsException {
+  public Problem getProblem(String pin) throws ResourceNotFoundException, InvalidArgumentsException {
     validatePin(pin);
 
     Optional<Problem> optionalProblem = problemRepository.findById(pin);
     if (optionalProblem.isEmpty()) {
-      throw new NoSuchElementFoundException();
+      throw new ResourceNotFoundException();
     }
     return optionalProblem.get();
   }
@@ -57,7 +57,7 @@ public class ProblemService {
   public Problem updateProblem(Problem problem) {
     validateProblem(problem);
     if (problemRepository.findById(problem.getIdentificationNumber()).isEmpty()) {
-      throw new NoSuchElementFoundException();
+      throw new ResourceNotFoundException();
     }
     return problemRepository.save(problem);
   }
@@ -65,12 +65,12 @@ public class ProblemService {
   public void removeProblem(String pin) {
     validatePin(pin);
     if (problemRepository.findById(pin).isEmpty()) {
-      throw new NoSuchElementFoundException();
+      throw new ResourceNotFoundException();
     }
     problemRepository.deleteById(pin);
   }
 
-  public void validateProblem(Problem problem) {
+  private void validateProblem(Problem problem) {
     validator.validateNotNull(Map.of(
         "problem description", problem.getProblemDescription(),
         "problem reporter", problem.getProblemReporter(),
@@ -93,7 +93,7 @@ public class ProblemService {
         "problem reference identification number", Pair.of(problem.getReferenceIdentificationNumber(), RIN_PATTERN)));
   }
 
-  public void validatePin(String pin) {
+  private void validatePin(String pin) {
     validator.validateNotNull(Map.of("pin", pin));
     validator.validateMatchesRegex(Map.of("pin", Pair.of(pin, PIN_PATTERN)));
   }

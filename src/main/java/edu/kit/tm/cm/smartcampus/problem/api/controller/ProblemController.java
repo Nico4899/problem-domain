@@ -1,6 +1,6 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
-import edu.kit.tm.cm.smartcampus.problem.api.ProblemOperations;
+import edu.kit.tm.cm.smartcampus.problem.api.operations.ProblemOperations;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.ProblemService;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
