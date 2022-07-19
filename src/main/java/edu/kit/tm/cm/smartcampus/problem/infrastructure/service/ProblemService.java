@@ -56,7 +56,7 @@ public class ProblemService {
 
   public Problem updateProblem(Problem problem) {
     validateProblem(problem);
-    if (problemRepository.findById(problem.getIdentificationNumber()).isEmpty()) {
+    if (problemRepository.findById(problem.getPin()).isEmpty()) {
       throw new ResourceNotFoundException();
     }
     return problemRepository.save(problem);
@@ -76,10 +76,10 @@ public class ProblemService {
         "problem reporter", problem.getProblemReporter(),
         "problem state", problem.getProblemState(),
         "problem title", problem.getProblemTitle(),
-        "problem identification number", problem.getIdentificationNumber(),
+        "problem identification number", problem.getPin(),
         "problem creation time", problem.getCreationTime(),
-        "problem notification identification number", problem.getNotificationIdentificationNumber(),
-        "problem reference identification number", problem.getReferenceIdentificationNumber()));
+        "problem notification identification number", problem.getNin(),
+        "problem reference identification number", problem.getReferenceIn()));
 
     validator.validateNotEmpty(Map.of(
         "problem description", problem.getProblemDescription(),
@@ -87,10 +87,10 @@ public class ProblemService {
         "problem title", problem.getProblemTitle()));
 
     validator.validateMatchesRegex(Map.of(
-        "problem identification number", Pair.of(problem.getIdentificationNumber(), PIN_PATTERN),
+        "problem identification number", Pair.of(problem.getPin(), PIN_PATTERN),
         "problem notification identification number",
-        Pair.of(problem.getNotificationIdentificationNumber(), NIN_PATTERN),
-        "problem reference identification number", Pair.of(problem.getReferenceIdentificationNumber(), RIN_PATTERN)));
+        Pair.of(problem.getNin(), NIN_PATTERN),
+        "problem reference identification number", Pair.of(problem.getReferenceIn(), RIN_PATTERN)));
   }
 
   private void validatePin(String pin) {

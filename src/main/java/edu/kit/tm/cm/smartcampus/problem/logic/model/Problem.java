@@ -33,14 +33,11 @@ public class Problem {
                           name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
                           value = "p-")
           })
-  @Column(name = "identification_number")
-  private String identificationNumber;
+  private String pin;
 
-  @Column(name = "reference_identification_number")
-  private String referenceIdentificationNumber;
+  private String referenceIn;
 
-  @Column(name = "notification_identification_number")
-  private String notificationIdentificationNumber;
+  private String nin;
 
   @Column(name = "problem_state")
   private ProblemState problemState;
