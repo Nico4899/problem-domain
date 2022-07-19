@@ -1,5 +1,9 @@
-package edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions;
+package edu.kit.tm.cm.smartcampus.problem.api.error;
 
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InternalServerErrorException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.UnauthorizedAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
