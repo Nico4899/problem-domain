@@ -7,10 +7,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-/** Class representing a validator which checks given inputs and thereby validates them. */
+/**
+ * Class representing an input validator which checks given inputs and thereby validates them and throws the right
+ * exceptions when an input is invalid.
+ */
 @Component
 @AllArgsConstructor
-public class Validator {
+public class InputValidator {
 
   /**
    * Validates weather objects are not null or not.
@@ -24,7 +27,7 @@ public class Validator {
     for (Map.Entry<String, Object> entry : objects.entrySet()) {
       if (entry.getValue() == null) {
         invalidArgumentsException.appendWrongArguments(
-            entry.getKey(), "null", "should not be null", true);
+                entry.getKey(), "null", "should not be null", true);
         valid = false;
       }
     }
@@ -46,7 +49,7 @@ public class Validator {
     for (Map.Entry<String, String> entry : strings.entrySet()) {
       if (!entry.getValue().isEmpty()) {
         invalidArgumentsException.appendWrongArguments(
-            entry.getKey() + ": ", entry.getValue(), "should not be empty", true);
+                entry.getKey() + ": ", entry.getValue(), "should not be empty", true);
         valid = false;
       }
     }
@@ -60,7 +63,7 @@ public class Validator {
    * Validates weather Strings match given regexes or not.
    *
    * @param strings Map of strings and their regexes to be checked and their names (key=name,
-   *     value=pair of string and regex)
+   *                value=pair of string and regex)
    */
   public void validateMatchesRegex(Map<String, Pair<String, String>> strings) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
@@ -69,10 +72,10 @@ public class Validator {
     for (Map.Entry<String, Pair<String, String>> entry : strings.entrySet()) {
       if (!entry.getValue().getFirst().matches(entry.getValue().getSecond())) {
         invalidArgumentsException.appendWrongArguments(
-            entry.getKey(),
-            entry.getValue().getFirst(),
-            "should match: " + entry.getValue().getSecond(),
-            true);
+                entry.getKey(),
+                entry.getValue().getFirst(),
+                "should match: " + entry.getValue().getSecond(),
+                true);
         valid = false;
       }
     }

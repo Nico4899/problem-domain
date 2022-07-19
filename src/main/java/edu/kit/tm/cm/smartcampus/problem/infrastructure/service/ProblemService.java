@@ -1,10 +1,10 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
 
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.Validator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.InputValidator;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
@@ -21,16 +21,16 @@ public class ProblemService {
   private static final String PIN_PATTERN = "^p-\\d+$";
   private static final String NIN_PATTERN = "^n-\\d+$";
 
-  private static final String RIN_PATTERN = ""; //TODO!
+  private static final String REFERENCE_IN_PATTERN = ""; //TODO!
 
   private final ProblemRepository problemRepository;
 
-  private final Validator validator;
+  private final InputValidator inputValidator;
 
   @Autowired
-  public ProblemService(ProblemRepository problemRepository, Validator validator) {
+  public ProblemService(ProblemRepository problemRepository, InputValidator inputValidator) {
     this.problemRepository = problemRepository;
-    this.validator = validator;
+    this.inputValidator = inputValidator;
   }
 
   public Collection<Problem> listProblems() {
@@ -70,32 +70,43 @@ public class ProblemService {
     problemRepository.deleteById(pin);
   }
 
+  /**
+   * Validates a given Problem (regarding everything that has nothing to do with the database) using the InputValidator.
+   *
+   * @param problem the problem to be validated
+   */
   private void validateProblem(Problem problem) {
-    validator.validateNotNull(Map.of(
-        "problem description", problem.getProblemDescription(),
-        "problem reporter", problem.getProblemReporter(),
-        "problem state", problem.getProblemState(),
-        "problem title", problem.getProblemTitle(),
-        "problem identification number", problem.getPin(),
-        "problem creation time", problem.getCreationTime(),
-        "problem notification identification number", problem.getNin(),
-        "problem reference identification number", problem.getReferenceIn()));
+    inputValidator.validateNotNull(Map.of(
+            "problem title", problem.getProblemTitle(),
+            "problem description", problem.getProblemDescription(),
+            "problem identification number", problem.getPin(),
+            "problem reference identification number", problem.getReferenceIn(),
+            "problem notification identification number", problem.getNin(),
+            "problem state", problem.getProblemState(),
+            "problem reporter", problem.getProblemReporter(),
+            "problem creation time attribute", problem.getCreationTime(),
+            "problem creation time", problem.getCreationTime().getTime()));
 
-    validator.validateNotEmpty(Map.of(
-        "problem description", problem.getProblemDescription(),
-        "problem reporter", problem.getProblemReporter(),
-        "problem title", problem.getProblemTitle()));
+    inputValidator.validateNotEmpty(Map.of(
+            "problem title", problem.getProblemTitle(),
+            "problem description", problem.getProblemDescription(),
+            "problem reporter", problem.getProblemReporter()));
 
-    validator.validateMatchesRegex(Map.of(
-        "problem identification number", Pair.of(problem.getPin(), PIN_PATTERN),
-        "problem notification identification number",
-        Pair.of(problem.getNin(), NIN_PATTERN),
-        "problem reference identification number", Pair.of(problem.getReferenceIn(), RIN_PATTERN)));
+    inputValidator.validateMatchesRegex(Map.of(
+            "problem identification number", Pair.of(problem.getPin(), PIN_PATTERN),
+            "problem reference identification number", Pair.of(problem.getReferenceIn(), REFERENCE_IN_PATTERN),
+            "problem notification identification number",
+            Pair.of(problem.getNin(), NIN_PATTERN)));
   }
 
+  /**
+   * Validates a given pin (regarding everything that has nothing to do with the database) using the InputValidator.
+   *
+   * @param pin the pin to be validated
+   */
   private void validatePin(String pin) {
-    validator.validateNotNull(Map.of("pin", pin));
-    validator.validateMatchesRegex(Map.of("pin", Pair.of(pin, PIN_PATTERN)));
+    inputValidator.validateNotNull(Map.of("pin", pin));
+    inputValidator.validateMatchesRegex(Map.of("pin", Pair.of(pin, PIN_PATTERN)));
   }
 
 }
