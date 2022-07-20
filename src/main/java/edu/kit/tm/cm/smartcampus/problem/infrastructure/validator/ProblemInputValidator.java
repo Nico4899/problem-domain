@@ -1,7 +1,9 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import lombok.AllArgsConstructor;
 import org.springframework.data.util.Pair;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -9,6 +11,8 @@ import java.util.Map;
  * Class representing a problem input validator which checks given objects from the problem model and thereby
  * validates them and throws the right exceptions when an input is invalid.
  */
+@Component
+@AllArgsConstructor
 public class ProblemInputValidator extends InputValidator {
 
   /**
