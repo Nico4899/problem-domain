@@ -1,25 +1,32 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import lombok.AllArgsConstructor;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
 import org.springframework.data.util.Pair;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 /**
  * Class representing an input validator which checks given inputs and thereby validates them and throws the right
- * exceptions when an input is invalid.
+ * exceptions when an input is invalid. //TODo javadoc anpassen
  */
-@AllArgsConstructor
-public abstract class InputValidator {
+public abstract class Validator<T> {
+
+  public static final String VALIDATE_REGEX = "";
+
+  private final ProblemRepository problemRepository;
+
+  protected Validator(ProblemRepository problemRepository) {
+    this.problemRepository = problemRepository;
+  }
 
   /**
-   * Validates whether objects are not null or not.
+   * Validates weather objects are not null or not.
    *
    * @param objects Map of objects to be checked and their names (key=name, value=object)
    */
-  public void validateNotNull(Map<String, Object> objects) {
+  protected void validateNotNull(Map<String, Object> objects) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
     boolean valid = true;
 
@@ -41,7 +48,7 @@ public abstract class InputValidator {
    *
    * @param strings Map of strings to be checked and their names (key=name, value=string)
    */
-  public void validateNotEmpty(Map<String, String> strings) {
+  protected void validateNotEmpty(Map<String, String> strings) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
     boolean valid = true;
 
@@ -64,7 +71,7 @@ public abstract class InputValidator {
    * @param strings Map of strings and their regexes to be checked and their names (key=name,
    *                value=pair of string and regex)
    */
-  public void validateMatchesRegex(Map<String, Pair<String, String>> strings) {
+  protected void validateMatchesRegex(Map<String, Pair<String, String>> strings) {
     InvalidArgumentsException invalidArgumentsException = new InvalidArgumentsException();
     boolean valid = true;
 
@@ -83,4 +90,24 @@ public abstract class InputValidator {
       throw invalidArgumentsException;
     }
   }
+
+  protected void validateExists(String inputIdentificationNumber, String name) {
+    if (!this.problemRepository.existsById(inputIdentificationNumber)) {
+      throw new ResourceNotFoundException(
+              String.format("utils.RESOURCE_NOT_FOUND_MESSAGE", name, inputIdentificationNumber)); //TODO
+    }
+  }
+
+  public void validate(String identificationNumber) {
+    validateNotNull(Map.of("identification_number", identificationNumber));
+    validateMatchesRegex(Map.of("identification_number", Pair.of(identificationNumber, getValidateRegex())));
+    validateExists(identificationNumber, "identification_number");
+  }
+
+  protected abstract String getValidateRegex();
+
+  public abstract void validateCreate(T object);
+
+  public abstract void validateUpdate(T object);
+
 }
