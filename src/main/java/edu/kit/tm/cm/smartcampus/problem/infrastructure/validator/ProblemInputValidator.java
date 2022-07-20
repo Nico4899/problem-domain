@@ -20,7 +20,7 @@ public class ProblemInputValidator extends InputValidator {
    *
    * @param problem the problem to be validated
    */
-  public void validateProblem(Problem problem) { //TODO validate creation time
+  public void validate(Problem problem) { //TODO validate creation time
     validateNotNull(Map.of(
             "problem", problem,
             "problem title", problem.getProblemTitle(),
@@ -46,13 +46,15 @@ public class ProblemInputValidator extends InputValidator {
   }
 
   /**
-   * Validates a given pin (regarding everything that has nothing to do with the database) using the InputValidator
+   * Validates an identification number regarding everything that has nothing to do with the database.
    *
-   * @param pin the pin to be validated
+   * @param in      the identification number to be validated
+   * @param inName  the name of the identification number
+   * @param inRegex the regex that the identification number should match
    */
-  public void validatePin(String pin) {
-    validateNotNull(Map.of("pin", pin));
-    validateMatchesRegex(Map.of("pin", Pair.of(pin, "PIN_PATTERN")));
+  public void validateIn(String in, String inName, String inRegex) {
+    validateNotNull(Map.of(inName, in));
+    validateNotNull(Map.of(inName, Pair.of(in, inRegex)));
   }
 
 }

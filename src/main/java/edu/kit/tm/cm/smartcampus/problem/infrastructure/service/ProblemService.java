@@ -45,7 +45,7 @@ public class ProblemService {
   }
 
   public Problem getProblem(String pin) throws ResourceNotFoundException, InvalidArgumentsException {
-    problemInputValidator.validatePin(pin);
+    problemInputValidator.validateIn(pin,"problem identification number","pin regex todo");
     serviceValidator.validateInIsMapped(problemRepository, pin);
     Optional<Problem> optionalProblem = problemRepository.findById(pin);
     if (optionalProblem.isEmpty()) {
@@ -55,19 +55,19 @@ public class ProblemService {
   }
 
   public Problem createProblem(Problem problem) {
-    problemInputValidator.validateProblem(problem);
+    problemInputValidator.validate(problem);
     serviceValidator.validateInDoesNotExist(problemRepository, problem.getPin());
     return problemRepository.save(problem);
   }
 
   public Problem updateProblem(Problem problem) {
-    problemInputValidator.validateProblem(problem);
+    problemInputValidator.validate(problem);
     serviceValidator.validateInIsMapped(problemRepository, problem.getPin());
     return problemRepository.save(problem);
   }
 
   public void removeProblem(String pin) {
-    problemInputValidator.validatePin(pin);
+    problemInputValidator.validateIn(pin,"problem identification number","pin regex todo");
     serviceValidator.validateInIsMapped(problemRepository, pin);
     problemRepository.deleteById(pin);
   }

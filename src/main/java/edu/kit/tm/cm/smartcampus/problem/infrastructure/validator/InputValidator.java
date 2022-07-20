@@ -11,9 +11,8 @@ import java.util.Map;
  * Class representing an input validator which checks given inputs and thereby validates them and throws the right
  * exceptions when an input is invalid.
  */
-@Component
 @AllArgsConstructor
-public class InputValidator {
+public abstract class InputValidator {
 
   /**
    * Validates whether objects are not null or not.
