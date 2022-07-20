@@ -13,7 +13,7 @@ import java.util.Map;
 public class Validator {
 
   /**
-   * Validates weather objects are not null or not.
+   * Validates whether objects are not null or not.
    *
    * @param objects Map of objects to be checked and their names (key=name, value=object)
    */
