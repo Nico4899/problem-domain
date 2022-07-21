@@ -4,9 +4,11 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.ProblemState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -42,7 +44,10 @@ public class ProblemService {
 
   public Problem createProblem(Problem problem) {
     this.problemValidator.validateCreate(problem);
-    return this.problemRepository.save(problem);
+    Problem createdProblem = this.problemRepository.save(problem);
+    createdProblem.setCreationTime(new Timestamp(System.currentTimeMillis()));
+    createdProblem.setProblemState(ProblemState.OPEN);
+    return createdProblem;
   }
 
   public Problem updateProblem(Problem problem) {
