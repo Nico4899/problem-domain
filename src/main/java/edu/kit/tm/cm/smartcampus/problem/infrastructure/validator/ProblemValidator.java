@@ -30,7 +30,7 @@ public class ProblemValidator extends Validator<Problem> {
         "problem identification number", object.getPin(),
         "problem reference identification number", object.getReferenceIn(),
         "problem notification identification number", object.getNin(),
-        "problem reporter", object.getProblemReporter(), ));
+        "problem reporter", object.getProblemReporter()));
 
     validateNotEmpty(Map.of(
         "problem title", object.getProblemTitle(),
