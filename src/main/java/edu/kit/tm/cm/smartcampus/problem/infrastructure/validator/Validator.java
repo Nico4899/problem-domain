@@ -18,8 +18,8 @@ import java.util.Map;
  */
 public abstract class Validator<T> {
 
-  /** The constant IDENTIFICATION_NUMBER_NAME. */
   // public constants
+  /** The constant IDENTIFICATION_NUMBER_NAME. */
   public static final String IDENTIFICATION_NUMBER_NAME = "identification_number";
 
   /** The constant PIN_PATTERN. */
