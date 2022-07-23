@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.CrudRepository;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -64,6 +65,8 @@ public class Service {
    */
   public Problem createProblem(Problem problem) {
     this.problemValidator.validateCreate(problem);
+    problem.setState(Problem.State.OPEN);
+    problem.setCreationTime(new Timestamp(System.nanoTime()));
     return this.problemRepository.save(problem);
   }
 
@@ -75,6 +78,7 @@ public class Service {
    */
   public Problem updateProblem(Problem problem) {
     this.problemValidator.validateUpdate(problem);
+    problem.setCreationTime(new Timestamp(System.nanoTime()));
     return this.problemRepository.save(problem);
   }
 
