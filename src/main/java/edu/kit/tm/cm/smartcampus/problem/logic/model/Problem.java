@@ -31,7 +31,7 @@ public class Problem {
   private static final String CREATION_TIME_COLUMN = "creation_time";
   private static final String PROBLEM_SEQUENCE_NAME = "problem_sequence";
   private static final String GENERATOR_PATH =
-      "edu/kit/tm/cm/smartcampus/building/infrastructure/database/PrefixSequenceGenerator.java";
+      "edu/kit/tm/cm/smartcampus/problem/infrastructure/database/PrefixSequenceGenerator.java";
   private static final String PROBLEM_IDENTIFICATION_NUMBER_PREFIX = "p-";
   private static final String IDENTIFICATION_NUMBER_COLUMN = "identification_number";
 
