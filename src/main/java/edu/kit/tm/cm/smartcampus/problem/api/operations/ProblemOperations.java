@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 /**
- * This interface provides all rest server operations connected to '/problems' requests. It also
+ * This interface provides all rest server operations connected to "/problems" requests. It also
  * provides their {@link GetMapping} for the call url.
  */
 @RequestMapping("/problems")

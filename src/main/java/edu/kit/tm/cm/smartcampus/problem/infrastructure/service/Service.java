@@ -67,7 +67,7 @@ public class Service {
     this.problemValidator.validateCreate(problem);
     problem.setState(Problem.State.OPEN);
     problem.setCreationTime(
-        new Timestamp(System.nanoTime())); // TODO validator has to check that Timestamp is empty
+        new Timestamp(System.nanoTime())); // TODO validator has to check that Timestamp is empty (?)
     return this.problemRepository.save(problem);
   }
 

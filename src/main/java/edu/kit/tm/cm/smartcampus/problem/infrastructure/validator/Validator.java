@@ -67,6 +67,9 @@ public abstract class Validator<T> {
   /** The constant REPORTER_NAME. */
   public static final String REPORTER_NAME = "reporter";
 
+  /** The constant CREATION_TIME_NAME. */
+  public static final String CREATION_TIME_NAME = "creation_time";
+
   // private constants
   private static final String NULL = "null";
   private static final String SHOULD_NOT_BE_NULL_MESSAGE = "should not be null";
