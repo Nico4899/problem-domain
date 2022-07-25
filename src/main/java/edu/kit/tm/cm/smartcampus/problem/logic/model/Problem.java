@@ -10,13 +10,15 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+import static edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.PROBLEM_TABLE_NAME;
+
 /**
  * This class represents a domain entity problem, it holds {@link State} as public enum constants.
  */
 @Setter
 @Getter
 @NoArgsConstructor
-@Entity(name = Problem.PROBLEM_TABLE_NAME)
+@Entity(name = PROBLEM_TABLE_NAME)
 public class Problem {
 
   /** The constant PROBLEM_TABLE_NAME. */
