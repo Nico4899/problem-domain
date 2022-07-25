@@ -216,7 +216,7 @@ public abstract class Validator<T> {
     private final StringBuilder stringBuilder = new StringBuilder();
 
     /**
-     * Append erro message.
+     * Append error message.
      *
      * @param name the name
      * @param input the input

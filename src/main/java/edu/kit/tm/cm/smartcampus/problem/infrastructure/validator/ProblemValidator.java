@@ -16,7 +16,7 @@ import java.util.Map;
 public class ProblemValidator extends Validator<Problem> {
 
   /**
-   * Instantiates a new Problem validator.
+   * Instantiates a new problem validator.
    *
    * @param problemRepository the problem repository in which all problems are saved
    */
