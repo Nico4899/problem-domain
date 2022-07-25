@@ -27,7 +27,7 @@ public class Service {
    * Constructs a new service instance for this domain service.
    *
    * @param problemRepository repository in which problem entities are stored (constructor injected)
-   * @param problemValidator validator which validates various requests (constructor injected)
+   * @param problemValidator  validator which validates various requests (constructor injected)
    */
   @Autowired
   public Service(ProblemRepository problemRepository, ProblemValidator problemValidator) {
@@ -42,7 +42,9 @@ public class Service {
    */
   public Collection<Problem> listProblems() {
     Collection<Problem> problems = new ArrayList<>();
-    for (Problem problem : this.problemRepository.findAll()) problems.add(problem);
+    for (Problem problem : this.problemRepository.findAll()) {
+      problems.add(problem);
+    }
     return problems;
   }
 
@@ -67,7 +69,7 @@ public class Service {
     this.problemValidator.validateCreate(problem);
     problem.setState(Problem.State.OPEN);
     problem.setCreationTime(
-        new Timestamp(System.nanoTime())); // TODO validator has to check that Timestamp is empty (?)
+            new Timestamp(System.nanoTime())); //TODO validator has to check that Timestamp is empty(?)
     return this.problemRepository.save(problem);
   }
 

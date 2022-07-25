@@ -63,7 +63,7 @@ public class Problem {
   private State state;
   private String reporter;
 
-  /** This enum describes the possible states of a problem */
+  /** This enum describes the possible states of a problem. */
   public enum State {
     /** Open state. */
     OPEN,
