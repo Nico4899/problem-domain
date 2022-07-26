@@ -2,7 +2,7 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 
 import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
-import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import edu.kit.tm.cm.smartcampus.problem.logic.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;

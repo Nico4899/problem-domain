@@ -2,8 +2,9 @@ package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
 import edu.kit.tm.cm.smartcampus.problem.api.error.ServerExceptionInterceptor;
 import edu.kit.tm.cm.smartcampus.problem.api.operations.ProblemOperations;
+import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.Service;
-import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import edu.kit.tm.cm.smartcampus.problem.logic.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +40,8 @@ public class ServerController implements ProblemOperations {
   }
 
   @Override
-  public Problem createProblem(Problem problem) {
-    return service.createProblem(problem);
+  public Problem createProblem(ProblemRequest problemRequest) {
+    return service.createProblem(problemRequest);
   }
 
   @Override
