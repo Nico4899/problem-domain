@@ -1,6 +1,6 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 
-import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,41 +33,33 @@ public class ProblemValidator extends Validator<Problem, ProblemRequest> {
 
   @Override
   public void validateCreate(ProblemRequest requestObject) {
-
-  }
-
-  public void validateCreate(Problem object) { //TODO depricated -> to be deleted
     validateNotNull(
-            Map.of(
-                    PROBLEM_NAME,
-                    object,
-                    TITLE_NAME,
-                    object.getTitle(),
-                    DESCRIPTION_NAME,
-                    object.getDescription(),
-                    IDENTIFICATION_NUMBER_NAME,
-                    object.getIdentificationNumber(),
-                    REFERENCE_IDENTIFICATION_NUMBER_NAME,
-                    object.getReferenceIdentificationNumber(),
-                    NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-                    object.getNotificationIdentificationNumber(),
-                    REPORTER_NAME,
-                    object.getReporter()));
+        Map.of(
+            PROBLEM_REQUEST_NAME,
+            requestObject,
+            TITLE_NAME,
+            requestObject.getTitle(),
+            DESCRIPTION_NAME,
+            requestObject.getDescription(),
+            REFERENCE_IDENTIFICATION_NUMBER_NAME,
+            requestObject.getReferenceIdentificationNumber(),
+            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+            requestObject.getNotificationIdentificationNumber(),
+            REPORTER_NAME,
+            requestObject.getReporter()));
 
     validateNotEmpty(
         Map.of(
-            TITLE_NAME, object.getTitle(),
-            DESCRIPTION_NAME, object.getDescription(),
-            REPORTER_NAME, object.getReporter()));
+            TITLE_NAME, requestObject.getTitle(),
+            DESCRIPTION_NAME, requestObject.getDescription(),
+            REPORTER_NAME, requestObject.getReporter()));
 
     validateMatchesRegex(
         Map.of(
-            IDENTIFICATION_NUMBER_NAME,
-            Pair.of(object.getIdentificationNumber(), PIN_PATTERN),
             REFERENCE_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(object.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
+            Pair.of(requestObject.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
             NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(object.getNotificationIdentificationNumber(), NIN_PATTERN)));
+            Pair.of(requestObject.getNotificationIdentificationNumber(), NIN_PATTERN)));
   }
 
   @Override

@@ -67,6 +67,11 @@ public abstract class Validator<O, R> {
   public static final String PROBLEM_NAME = "problem";
 
   /**
+   * The constant PROBLEM_REQUEST_NAME.
+   */
+  public static final String PROBLEM_REQUEST_NAME = PROBLEM_NAME + "_request";
+
+  /**
    * The constant TITLE_NAME.
    */
   public static final String TITLE_NAME = "title";
