@@ -1,6 +1,7 @@
 package edu.kit.tm.cm.smartcampus.problem.logic;
 
 import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 
 public class LogicUtils {
 

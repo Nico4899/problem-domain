@@ -1,4 +1,4 @@
-package edu.kit.tm.cm.smartcampus.problem.logic;
+package edu.kit.tm.cm.smartcampus.problem.logic.model;
 
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-import static edu.kit.tm.cm.smartcampus.problem.logic.Problem.PROBLEM_TABLE_NAME;
+import static edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.PROBLEM_TABLE_NAME;
 
 /**
  * This class represents a domain entity problem, it holds {@link State} as public enum constants.

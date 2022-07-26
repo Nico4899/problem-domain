@@ -4,7 +4,7 @@ import edu.kit.tm.cm.smartcampus.problem.api.error.ServerExceptionInterceptor;
 import edu.kit.tm.cm.smartcampus.problem.api.operations.ProblemOperations;
 import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.Service;
-import edu.kit.tm.cm.smartcampus.problem.logic.Problem;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;

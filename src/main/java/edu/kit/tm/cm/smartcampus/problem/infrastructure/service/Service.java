@@ -5,7 +5,7 @@ import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemReposito
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.Validator;
 import edu.kit.tm.cm.smartcampus.problem.logic.LogicUtils;
-import edu.kit.tm.cm.smartcampus.problem.logic.Problem;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.CrudRepository;
