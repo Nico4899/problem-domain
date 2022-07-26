@@ -1,8 +1,10 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
+import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.Validator;
+import edu.kit.tm.cm.smartcampus.problem.logic.LogicUtils;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -62,11 +64,12 @@ public class Service {
   /**
    * Create a new {@link Problem} in this domain service.
    *
-   * @param problem the problem to be created
+   * @param problemRequest the problem to be created
    * @return the created problem
    */
-  public Problem createProblem(Problem problem) {
-    this.problemValidator.validateCreate(problem);
+  public Problem createProblem(ProblemRequest problemRequest) {
+    this.problemValidator.validateCreate(problemRequest);
+    Problem problem = LogicUtils.convertProblemRequestToProblem(problemRequest);
     problem.setState(Problem.State.OPEN);
     problem.setCreationTime(new Timestamp(System.nanoTime())); //TODO validator has to check that
     // Timestamp is empty(?)

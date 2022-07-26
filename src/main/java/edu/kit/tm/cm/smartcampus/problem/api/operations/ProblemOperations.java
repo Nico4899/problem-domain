@@ -1,5 +1,6 @@
 package edu.kit.tm.cm.smartcampus.problem.api.operations;
 
+import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,11 @@ public interface ProblemOperations {
   /**
    * Create a new {@link Problem} on "/problems" url in this domain service.
    *
-   * @param problem the problem to be created in this service
+   * @param problemRequest the request for the problem to be created in this service
    * @return the created problem
    */
   @PostMapping("")
-  Problem createProblem(Problem problem);
+  Problem createProblem(ProblemRequest problemRequest);
 
   /**
    * Update a specific {@link Problem} on "/problems" url in this domain service.

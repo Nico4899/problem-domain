@@ -14,60 +14,98 @@ import java.util.Map;
  * invalid arguments, it throws {@link InvalidArgumentsException} and in case of nonexistence of
  * given objects in the database, it throws {@link ResourceNotFoundException}.
  *
- * @param <T> the type of which this validator validates objects
+ * @param <O> the type of which this validator validates objects
+ * @param <R> the type of which this validator validates request objects for the objects
  */
-public abstract class Validator<T> {
+public abstract class Validator<O, R> {
 
   // public constants
-  /** The constant IDENTIFICATION_NUMBER_NAME. */
+  /**
+   * The constant IDENTIFICATION_NUMBER_NAME.
+   */
   public static final String IDENTIFICATION_NUMBER_NAME = "identification_number";
 
-  /** The constant PIN_PATTERN. */
+  /**
+   * The constant PIN_PATTERN.
+   */
   public static final String PIN_PATTERN = "^p-\\d+$";
 
-  /** The constant NIN_PATTERN. */
+  /**
+   * The constant NIN_PATTERN.
+   */
   public static final String NIN_PATTERN = "^n-\\d+$";
 
-  /** The constant RIN_PATTERN. */
+  /**
+   * The constant RIN_PATTERN.
+   */
   public static final String RIN_PATTERN = "^r-\\d+$";
 
-  /** The constant BIN_PATTERN. */
+  /**
+   * The constant BIN_PATTERN.
+   */
   public static final String BIN_PATTERN = "^b-\\d+$";
 
-  /** The constant CIN_PATTERN. */
+  /**
+   * The constant CIN_PATTERN.
+   */
   public static final String CIN_PATTERN = "^c-\\d+$";
 
-  /** The constant BIN_RIN_CIN_PATTERN. */
+  /**
+   * The constant BIN_RIN_CIN_PATTERN.
+   */
   public static final String BIN_RIN_CIN_PATTERN =
       BIN_PATTERN + "|" + RIN_PATTERN + "|" + CIN_PATTERN;
 
-  /** The constant PROBLEM_IDENTIFICATION_NUMBER_NAME. */
+  /**
+   * The constant PROBLEM_IDENTIFICATION_NUMBER_NAME.
+   */
   public static final String PROBLEM_IDENTIFICATION_NUMBER_NAME = "problem_identification_number";
 
-  /** The constant PROBLEM_NAME. */
+  /**
+   * The constant PROBLEM_NAME.
+   */
   public static final String PROBLEM_NAME = "problem";
 
-  /** The constant TITLE_NAME. */
+  /**
+   * The constant PROBLEM_REQUEST_NAME.
+   */
+  public static final String PROBLEM_REQUEST_NAME = PROBLEM_NAME + "_request";
+
+  /**
+   * The constant TITLE_NAME.
+   */
   public static final String TITLE_NAME = "title";
 
-  /** The constant DESCRIPTION_NAME. */
+  /**
+   * The constant DESCRIPTION_NAME.
+   */
   public static final String DESCRIPTION_NAME = "description";
 
-  /** The constant REFERENCE_IDENTIFICATION_NUMBER_NAME. */
+  /**
+   * The constant REFERENCE_IDENTIFICATION_NUMBER_NAME.
+   */
   public static final String REFERENCE_IDENTIFICATION_NUMBER_NAME =
       "reference_identification_number";
 
-  /** The constant NOTIFICATION_IDENTIFICATION_NUMBER_NAME. */
+  /**
+   * The constant NOTIFICATION_IDENTIFICATION_NUMBER_NAME.
+   */
   public static final String NOTIFICATION_IDENTIFICATION_NUMBER_NAME =
       "notification_identification_number";
 
-  /** The constant STATE_NAME. */
+  /**
+   * The constant STATE_NAME.
+   */
   public static final String STATE_NAME = "state";
 
-  /** The constant REPORTER_NAME. */
+  /**
+   * The constant REPORTER_NAME.
+   */
   public static final String REPORTER_NAME = "reporter";
 
-  /** The constant CREATION_TIME_NAME. */
+  /**
+   * The constant CREATION_TIME_NAME.
+   */
   public static final String CREATION_TIME_NAME = "creation_time";
 
   // private constants
@@ -99,8 +137,8 @@ public abstract class Validator<T> {
 
     for (Map.Entry<String, Object> entry : objects.entrySet()) {
       if (entry.getValue() == null) {
-        invalidArgumentsStringBuilder.appendMessage(
-            entry.getKey(), NULL, SHOULD_NOT_BE_NULL_MESSAGE, true);
+        invalidArgumentsStringBuilder.appendMessage(entry.getKey(), NULL,
+            SHOULD_NOT_BE_NULL_MESSAGE, true);
         valid = false;
       }
     }
@@ -122,8 +160,8 @@ public abstract class Validator<T> {
 
     for (Map.Entry<String, String> entry : strings.entrySet()) {
       if (entry.getValue().isEmpty()) {
-        invalidArgumentsStringBuilder.appendMessage(
-            entry.getKey(), entry.getValue(), SHOULD_NOT_BE_EMPTY_MESSAGE, true);
+        invalidArgumentsStringBuilder.appendMessage(entry.getKey(), entry.getValue(),
+            SHOULD_NOT_BE_EMPTY_MESSAGE, true);
         valid = false;
       }
     }
@@ -137,7 +175,7 @@ public abstract class Validator<T> {
    * Validates weather Strings match given regexes or not.
    *
    * @param strings Map of strings and their regexes to be checked and their names (key=name,
-   *     value=pair of string and regex)
+   *                value=pair of string and regex)
    */
   protected void validateMatchesRegex(Map<String, Pair<String, String>> strings) {
     InvalidArgumentsStringBuilder invalidArgumentsStringBuilder =
@@ -146,11 +184,8 @@ public abstract class Validator<T> {
 
     for (Map.Entry<String, Pair<String, String>> entry : strings.entrySet()) {
       if (!entry.getValue().getFirst().matches(entry.getValue().getSecond())) {
-        invalidArgumentsStringBuilder.appendMessage(
-            entry.getKey(),
-            entry.getValue().getFirst(),
-            SHOULD_MATCH_MESSAGE + entry.getValue().getSecond(),
-            true);
+        invalidArgumentsStringBuilder.appendMessage(entry.getKey(), entry.getValue().getFirst(),
+            SHOULD_MATCH_MESSAGE + entry.getValue().getSecond(), true);
         valid = false;
       }
     }
@@ -164,7 +199,7 @@ public abstract class Validator<T> {
    * Validate if entity exists.
    *
    * @param inputIdentificationNumber the input identification number
-   * @param name the name of the given value
+   * @param name                      the name of the given value
    */
   protected void validateExists(String inputIdentificationNumber, String name) {
     if (!problemRepository.existsById(inputIdentificationNumber)) {
@@ -179,8 +214,8 @@ public abstract class Validator<T> {
    */
   public void validate(String identificationNumber) {
     validateNotNull(Map.of(IDENTIFICATION_NUMBER_NAME, identificationNumber));
-    validateMatchesRegex(
-        Map.of(IDENTIFICATION_NUMBER_NAME, Pair.of(identificationNumber, getValidateRegex())));
+    validateMatchesRegex(Map.of(IDENTIFICATION_NUMBER_NAME, Pair.of(identificationNumber,
+        getValidateRegex())));
     validateExists(identificationNumber, IDENTIFICATION_NUMBER_NAME);
   }
 
@@ -194,16 +229,16 @@ public abstract class Validator<T> {
   /**
    * Validate create operation.
    *
-   * @param object the object to be validated
+   * @param requestObject the request object to be validated
    */
-  public abstract void validateCreate(T object);
+  public abstract void validateCreate(R requestObject);
 
   /**
    * Validate update operation.
    *
    * @param object the object to be validated
    */
-  public abstract void validateUpdate(T object);
+  public abstract void validateUpdate(O object);
 
   @NoArgsConstructor
   private static class InvalidArgumentsStringBuilder {
@@ -218,9 +253,9 @@ public abstract class Validator<T> {
     /**
      * Append error message.
      *
-     * @param name the name
-     * @param input the input
-     * @param hint the hint
+     * @param name    the name
+     * @param input   the input
+     * @param hint    the hint
      * @param hasHint if a hint is provided
      */
     public void appendMessage(String name, String input, String hint, boolean hasHint) {
@@ -247,14 +282,7 @@ public abstract class Validator<T> {
     }
 
     private void appendWithHint(String name, String input, String hint) {
-      stringBuilder
-          .append(COMMA)
-          .append(name)
-          .append(COLON)
-          .append(input)
-          .append(LEFT_PARENTHESIS)
-          .append(hint)
-          .append(RIGHT_PARENTHESIS);
+      stringBuilder.append(COMMA).append(name).append(COLON).append(input).append(LEFT_PARENTHESIS).append(hint).append(RIGHT_PARENTHESIS);
     }
 
     private void appendWithoutHint(String name, String input) {
@@ -266,13 +294,7 @@ public abstract class Validator<T> {
     }
 
     private void appendFirstIterationWithHint(String name, String input, String hint) {
-      stringBuilder
-          .append(name)
-          .append(COLON)
-          .append(input)
-          .append(LEFT_PARENTHESIS)
-          .append(hint)
-          .append(RIGHT_PARENTHESIS);
+      stringBuilder.append(name).append(COLON).append(input).append(LEFT_PARENTHESIS).append(hint).append(RIGHT_PARENTHESIS);
     }
   }
 }
