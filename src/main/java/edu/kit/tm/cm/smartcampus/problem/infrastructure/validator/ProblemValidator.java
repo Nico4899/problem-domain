@@ -1,5 +1,6 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 
+import edu.kit.tm.cm.smartcampus.problem.api.payload.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Map;
  * Problem} requests. It calls parent methods to validate certain attributes.
  */
 @Component
-public class ProblemValidator extends Validator<Problem> {
+public class ProblemValidator extends Validator<Problem, ProblemRequest> {
 
   /**
    * Instantiates a new problem validator.
@@ -31,7 +32,11 @@ public class ProblemValidator extends Validator<Problem> {
   }
 
   @Override
-  public void validateCreate(Problem object) {
+  public void validateCreate(ProblemRequest requestObject) {
+
+  }
+
+  public void validateCreate(Problem object) { //TODO depricated -> to be deleted
     validateNotNull(
             Map.of(
                     PROBLEM_NAME,
@@ -49,7 +54,20 @@ public class ProblemValidator extends Validator<Problem> {
                     REPORTER_NAME,
                     object.getReporter()));
 
-    validateBase(object);
+    validateNotEmpty(
+        Map.of(
+            TITLE_NAME, object.getTitle(),
+            DESCRIPTION_NAME, object.getDescription(),
+            REPORTER_NAME, object.getReporter()));
+
+    validateMatchesRegex(
+        Map.of(
+            IDENTIFICATION_NUMBER_NAME,
+            Pair.of(object.getIdentificationNumber(), PIN_PATTERN),
+            REFERENCE_IDENTIFICATION_NUMBER_NAME,
+            Pair.of(object.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
+            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+            Pair.of(object.getNotificationIdentificationNumber(), NIN_PATTERN)));
   }
 
   @Override
@@ -75,26 +93,22 @@ public class ProblemValidator extends Validator<Problem> {
                     REPORTER_NAME,
                     object.getReporter()));
 
-    validateBase(object);
-
-    validateExists(object.getIdentificationNumber(), PROBLEM_IDENTIFICATION_NUMBER_NAME);
-  }
-
-  private void validateBase(Problem object) {
     validateNotEmpty(
-            Map.of(
-                    TITLE_NAME, object.getTitle(),
-                    DESCRIPTION_NAME, object.getDescription(),
-                    REPORTER_NAME, object.getReporter()));
+        Map.of(
+            TITLE_NAME, object.getTitle(),
+            DESCRIPTION_NAME, object.getDescription(),
+            REPORTER_NAME, object.getReporter()));
 
     validateMatchesRegex(
-            Map.of(
-                    IDENTIFICATION_NUMBER_NAME,
-                    Pair.of(object.getIdentificationNumber(), PIN_PATTERN),
-                    REFERENCE_IDENTIFICATION_NUMBER_NAME,
-                    Pair.of(object.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
-                    NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-                    Pair.of(object.getNotificationIdentificationNumber(), NIN_PATTERN)));
+        Map.of(
+            IDENTIFICATION_NUMBER_NAME,
+            Pair.of(object.getIdentificationNumber(), PIN_PATTERN),
+            REFERENCE_IDENTIFICATION_NUMBER_NAME,
+            Pair.of(object.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
+            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+            Pair.of(object.getNotificationIdentificationNumber(), NIN_PATTERN)));
+
+    validateExists(object.getIdentificationNumber(), PROBLEM_IDENTIFICATION_NUMBER_NAME);
   }
 
 }
