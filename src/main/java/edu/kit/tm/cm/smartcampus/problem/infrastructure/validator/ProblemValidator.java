@@ -8,9 +8,18 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * This class is a child implementation of the {@link Validator}, it focuses on validating {@link
+ * Problem} requests. It calls parent methods to validate certain attributes.
+ */
 @Component
 public class ProblemValidator extends Validator<Problem> {
 
+  /**
+   * Instantiates a new problem validator.
+   *
+   * @param problemRepository the problem repository in which all problems are saved
+   */
   @Autowired
   protected ProblemValidator(ProblemRepository problemRepository) {
     super(problemRepository);
@@ -18,43 +27,74 @@ public class ProblemValidator extends Validator<Problem> {
 
   @Override
   protected String getValidateRegex() {
-    return null; //TODO aus der util klasse
+    return PIN_PATTERN;
   }
 
   @Override
   public void validateCreate(Problem object) {
-    validateBase(object);
+    validateNotNull(
+            Map.of(
+                    PROBLEM_NAME,
+                    object,
+                    TITLE_NAME,
+                    object.getTitle(),
+                    DESCRIPTION_NAME,
+                    object.getDescription(),
+                    IDENTIFICATION_NUMBER_NAME,
+                    object.getIdentificationNumber(),
+                    REFERENCE_IDENTIFICATION_NUMBER_NAME,
+                    object.getReferenceIdentificationNumber(),
+                    NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+                    object.getNotificationIdentificationNumber(),
+                    REPORTER_NAME,
+                    object.getReporter()));
 
+    validateBase(object);
   }
 
   @Override
   public void validateUpdate(Problem object) {
+    validateNotNull(
+            Map.of(
+                    PROBLEM_NAME,
+                    object,
+                    TITLE_NAME,
+                    object.getTitle(),
+                    DESCRIPTION_NAME,
+                    object.getDescription(),
+                    IDENTIFICATION_NUMBER_NAME,
+                    object.getIdentificationNumber(),
+                    REFERENCE_IDENTIFICATION_NUMBER_NAME,
+                    object.getReferenceIdentificationNumber(),
+                    NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+                    object.getNotificationIdentificationNumber(),
+                    STATE_NAME,
+                    object.getState(),
+                    CREATION_TIME_NAME,
+                    object.getCreationTime(),
+                    REPORTER_NAME,
+                    object.getReporter()));
+
     validateBase(object);
-    validateExists(object.getPin(), "problem_identification_number");
+
+    validateExists(object.getIdentificationNumber(), PROBLEM_IDENTIFICATION_NUMBER_NAME);
   }
 
-  private void validateBase(Problem object) { //TODO validate creation time
-    validateNotNull(Map.of(
-            "problem", object,
-            "problem title", object.getProblemTitle(),
-            "problem description", object.getProblemDescription(),
-            "problem identification number", object.getPin(),
-            "problem reference identification number", object.getReferenceIn(),
-            "problem notification identification number", object.getNin(),
-            "problem state", object.getProblemState(),
-            "problem reporter", object.getProblemReporter(),
-            "problem creation time attribute", object.getCreationTime(),
-            "problem creation time", object.getCreationTime().getTime()));
+  private void validateBase(Problem object) {
+    validateNotEmpty(
+            Map.of(
+                    TITLE_NAME, object.getTitle(),
+                    DESCRIPTION_NAME, object.getDescription(),
+                    REPORTER_NAME, object.getReporter()));
 
-    validateNotEmpty(Map.of(
-            "problem title", object.getProblemTitle(),
-            "problem description", object.getProblemDescription(),
-            "problem reporter", object.getProblemReporter()));
-
-    validateMatchesRegex(Map.of(
-            "problem identification number", Pair.of(object.getPin(), "PIN_PATTERN"),
-            "problem reference identification number", Pair.of(object.getReferenceIn(), "REFERENCE_IN_PATTERN"),
-            "problem notification identification number",
-            Pair.of(object.getNin(), "NIN_PATTERN")));
+    validateMatchesRegex(
+            Map.of(
+                    IDENTIFICATION_NUMBER_NAME,
+                    Pair.of(object.getIdentificationNumber(), PIN_PATTERN),
+                    REFERENCE_IDENTIFICATION_NUMBER_NAME,
+                    Pair.of(object.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
+                    NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+                    Pair.of(object.getNotificationIdentificationNumber(), NIN_PATTERN)));
   }
+
 }

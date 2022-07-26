@@ -1,51 +1,95 @@
 package edu.kit.tm.cm.smartcampus.problem.logic.model;
 
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+import static edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.PROBLEM_TABLE_NAME;
+
+/**
+ * This class represents a domain entity problem, it holds {@link State} as public enum constants.
+ */
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Entity(name = "problem")
+@Entity(name = PROBLEM_TABLE_NAME)
 public class Problem {
 
-  @Column(name = "problem_title")
-  private String problemTitle;
+  /**
+   * The constant PROBLEM_TABLE_NAME.
+   */
+  // table name (must be public, else annotation can't find it)
+  public static final String PROBLEM_TABLE_NAME = "problem";
 
-  @Column(name = "problem_description")
-  private String problemDescription;
+  // constants this class uses
+  private static final String REFERENCE_IDENTIFICATION_NUMBER_COLUMN =
+          "reference_identification_number";
+  private static final String NOTIFICATION_IDENTIFICATION_NUMBER_COLUMN =
+          "notification_identification_number";
+  private static final String CREATION_TIME_COLUMN = "creation_time";
+  private static final String PROBLEM_SEQUENCE_NAME = "problem_sequence";
+  private static final String GENERATOR_PATH =
+          "edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator";
+  private static final String PROBLEM_IDENTIFICATION_NUMBER_PREFIX = "p-";
+  private static final String IDENTIFICATION_NUMBER_COLUMN = "identification_number";
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "problem_sequence")
-  @SequenceGenerator(name = "problem_sequence", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = PROBLEM_SEQUENCE_NAME)
+  @SequenceGenerator(name = PROBLEM_SEQUENCE_NAME, allocationSize = 1)
   @GenericGenerator(
-          name = "problem_sequence",
-          strategy =
-                  "edu/kit/tm/cm/smartcampus/building/infrastructure/database/PrefixSequenceGenerator.java",
+          name = PROBLEM_SEQUENCE_NAME,
+          strategy = GENERATOR_PATH,
           parameters = {
-                  @org.hibernate.annotations.Parameter(
+                  @Parameter(
                           name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
-                          value = "p-")
+                          value = PROBLEM_IDENTIFICATION_NUMBER_PREFIX)
           })
-  private String pin;
+  @Column(name = IDENTIFICATION_NUMBER_COLUMN)
+  private String identificationNumber;
 
-  private String referenceIn;
+  @Column(name = REFERENCE_IDENTIFICATION_NUMBER_COLUMN)
+  private String referenceIdentificationNumber;
 
-  private String nin;
+  @Column(name = NOTIFICATION_IDENTIFICATION_NUMBER_COLUMN)
+  private String notificationIdentificationNumber;
 
-  @Column(name = "problem_state")
-  private ProblemState problemState;
-
-  @Column(name = "problem_reporter")
-  private String problemReporter;
-
-  @Column(name = "creation_time")
+  @Column(name = CREATION_TIME_COLUMN)
   private Timestamp creationTime;
 
+  private String title;
+  private String description;
+  private State state;
+  private String reporter;
+
+  /**
+   * This enum describes the possible states of a problem.
+   */
+  public enum State {
+    /**
+     * Open state.
+     */
+    OPEN,
+    /**
+     * Accepted state.
+     */
+    ACCEPTED,
+    /**
+     * In progress state.
+     */
+    IN_PROGRESS,
+    /**
+     * Declined state.
+     */
+    DECLINED,
+    /**
+     * Closed state.
+     */
+    CLOSED
+  }
 }
