@@ -19,7 +19,7 @@ import java.util.Collection;
  * given information as REST error response.
  */
 @RestController
-public class ServerController implements ProblemOperations {
+public class ProblemController implements ProblemOperations {
 
   private final Service service;
 
@@ -30,7 +30,7 @@ public class ServerController implements ProblemOperations {
    * @param service the problem service which controls all domain logic (constructor injected)
    */
   @Autowired
-  public ServerController(Service service) {
+  public ProblemController(Service service) {
     this.service = service;
   }
 
