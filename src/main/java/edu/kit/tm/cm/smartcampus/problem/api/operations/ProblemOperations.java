@@ -28,7 +28,7 @@ public interface ProblemOperations {
    * @return the created problem
    */
   @PostMapping("")
-  Problem createProblem(ProblemRequest problemRequest);
+  Problem createProblem(@RequestBody ProblemRequest problemRequest);
 
   /**
    * Update a specific {@link Problem} on "/problems" url in this domain service.
@@ -37,7 +37,7 @@ public interface ProblemOperations {
    * @return the updated problem with updated attributes
    */
   @PutMapping("")
-  Problem updateProblem(Problem problem);
+  Problem updateProblem(@RequestBody Problem problem);
 
   /**
    * Get a specific {@link Problem} on "/problems/{pin}" url from tis domain service.
