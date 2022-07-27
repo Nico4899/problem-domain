@@ -3,8 +3,17 @@ package edu.kit.tm.cm.smartcampus.problem.logic;
 import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 
+/**
+ * This class provides utilities to work with problems.
+ */
 public class LogicUtils {
 
+  /**
+   * Converts a ProblemRequest to a Problem and sets all attributes of the problem to the values of the existing
+   * attributes of the Request
+   * @param problemRequest the Request that should be converted
+   * @return the resulting problem
+   */
   public static Problem convertProblemRequestToProblem(ProblemRequest problemRequest) {
 
     Problem problem = new Problem();
