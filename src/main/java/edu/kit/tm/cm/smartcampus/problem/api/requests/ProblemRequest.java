@@ -9,7 +9,6 @@ import lombok.*;
 @Setter
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor //TODO den vllt weg?
 public class ProblemRequest {
 
   private String title;
