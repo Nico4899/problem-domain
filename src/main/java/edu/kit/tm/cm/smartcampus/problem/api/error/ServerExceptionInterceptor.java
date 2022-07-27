@@ -13,8 +13,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 /**
  * This class represents a server exception interceptor, it intercepts on exceptions annotated with
- * {@link ExceptionHandler} with proper {@link HttpStatus} and the exception message. The {@link
- * ControllerAdvice} annotation makes this interceptor global this removes the need of other
+ * {@link ExceptionHandler} with proper {@link HttpStatus} and the exception message. The
+ * {@link ControllerAdvice} annotation makes this interceptor global this removes the need of other
  * exception handling.
  */
 @ControllerAdvice
@@ -25,7 +25,7 @@ public class ServerExceptionInterceptor extends ResponseEntityExceptionHandler {
    * a {@link HttpStatus#BAD_REQUEST} and the exception message.
    *
    * @param exception thrown exception
-   * @param request the caught web request
+   * @param request   the caught web request
    * @return a proper {@link ResponseEntity}
    */
   @ExceptionHandler(InvalidArgumentsException.class)
@@ -40,7 +40,7 @@ public class ServerExceptionInterceptor extends ResponseEntityExceptionHandler {
    * a {@link HttpStatus#NOT_FOUND} and the exception message.
    *
    * @param exception thrown exception
-   * @param request the caught web request
+   * @param request   the caught web request
    * @return a proper {@link ResponseEntity}
    */
   @ExceptionHandler(ResourceNotFoundException.class)
@@ -55,7 +55,7 @@ public class ServerExceptionInterceptor extends ResponseEntityExceptionHandler {
    * provides a {@link HttpStatus#INTERNAL_SERVER_ERROR} and the exception message.
    *
    * @param exception thrown exception
-   * @param request the caught web request
+   * @param request   the caught web request
    * @return a proper {@link ResponseEntity}
    */
   @ExceptionHandler(InternalServerErrorException.class)
@@ -74,7 +74,7 @@ public class ServerExceptionInterceptor extends ResponseEntityExceptionHandler {
    * {@link HttpStatus#I_AM_A_TEAPOT} and the exception message.
    *
    * @param exception thrown exception
-   * @param request the caught web request
+   * @param request   the caught web request
    * @return a proper {@link ResponseEntity}
    */
   @ExceptionHandler(Exception.class)

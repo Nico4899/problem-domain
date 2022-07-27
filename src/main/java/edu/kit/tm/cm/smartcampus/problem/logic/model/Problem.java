@@ -1,16 +1,20 @@
 package edu.kit.tm.cm.smartcampus.problem.logic.model;
 
+import static edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.PROBLEM_TABLE_NAME;
+
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator;
+import java.sql.Timestamp;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-
-import javax.persistence.*;
-import java.sql.Timestamp;
-
-import static edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.PROBLEM_TABLE_NAME;
 
 /**
  * This class represents a domain entity problem, it holds {@link State} as public enum constants.
@@ -29,13 +33,13 @@ public class Problem {
 
   // constants this class uses
   private static final String REFERENCE_IDENTIFICATION_NUMBER_COLUMN =
-          "reference_identification_number";
+      "reference_identification_number";
   private static final String NOTIFICATION_IDENTIFICATION_NUMBER_COLUMN =
-          "notification_identification_number";
+      "notification_identification_number";
   private static final String CREATION_TIME_COLUMN = "creation_time";
   private static final String PROBLEM_SEQUENCE_NAME = "problem_sequence";
   private static final String GENERATOR_PATH =
-          "edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator";
+      "edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator";
   private static final String PROBLEM_IDENTIFICATION_NUMBER_PREFIX = "p-";
   private static final String IDENTIFICATION_NUMBER_COLUMN = "identification_number";
 
@@ -43,13 +47,13 @@ public class Problem {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = PROBLEM_SEQUENCE_NAME)
   @SequenceGenerator(name = PROBLEM_SEQUENCE_NAME, allocationSize = 1)
   @GenericGenerator(
-          name = PROBLEM_SEQUENCE_NAME,
-          strategy = GENERATOR_PATH,
-          parameters = {
-                  @Parameter(
-                          name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
-                          value = PROBLEM_IDENTIFICATION_NUMBER_PREFIX)
-          })
+      name = PROBLEM_SEQUENCE_NAME,
+      strategy = GENERATOR_PATH,
+      parameters = {
+          @Parameter(
+              name = PrefixSequenceGenerator.VALUE_PREFIX_PARAMETER,
+              value = PROBLEM_IDENTIFICATION_NUMBER_PREFIX)
+      })
   @Column(name = IDENTIFICATION_NUMBER_COLUMN)
   private String identificationNumber;
 

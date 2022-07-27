@@ -1,5 +1,7 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.database;
 
+import java.io.Serializable;
+import java.util.Properties;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,9 +11,6 @@ import org.hibernate.internal.util.config.ConfigurationHelper;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.type.LongType;
 import org.hibernate.type.Type;
-
-import java.io.Serializable;
-import java.util.Properties;
 
 /**
  * This class represents a custom prefix sequence generator for database primary key generation. It

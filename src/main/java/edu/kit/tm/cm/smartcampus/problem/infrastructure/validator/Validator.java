@@ -3,11 +3,10 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
+import java.util.Map;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
-
-import java.util.Map;
 
 /**
  * This class represents a parent class validator for any given attribute constraints. In case of
@@ -282,7 +281,8 @@ public abstract class Validator<O, R> {
     }
 
     private void appendWithHint(String name, String input, String hint) {
-      stringBuilder.append(COMMA).append(name).append(COLON).append(input).append(LEFT_PARENTHESIS).append(hint).append(RIGHT_PARENTHESIS);
+      stringBuilder.append(COMMA).append(name).append(COLON).append(input).append(LEFT_PARENTHESIS)
+          .append(hint).append(RIGHT_PARENTHESIS);
     }
 
     private void appendWithoutHint(String name, String input) {
@@ -294,7 +294,8 @@ public abstract class Validator<O, R> {
     }
 
     private void appendFirstIterationWithHint(String name, String input, String hint) {
-      stringBuilder.append(name).append(COLON).append(input).append(LEFT_PARENTHESIS).append(hint).append(RIGHT_PARENTHESIS);
+      stringBuilder.append(name).append(COLON).append(input).append(LEFT_PARENTHESIS).append(hint)
+          .append(RIGHT_PARENTHESIS);
     }
   }
 }
