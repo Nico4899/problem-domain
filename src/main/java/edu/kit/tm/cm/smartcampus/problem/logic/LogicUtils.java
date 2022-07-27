@@ -11,7 +11,7 @@ public class LogicUtils {
   /**
    * Converts a ProblemRequest to a Problem and sets all attributes of the problem to the values of the existing
    * attributes of the Request
-   * @param problemRequest the Request that should be converted
+   * @param problemRequest the Request to be converted
    * @return the resulting problem
    */
   public static Problem convertProblemRequestToProblem(ProblemRequest problemRequest) {
