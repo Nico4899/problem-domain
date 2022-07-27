@@ -71,7 +71,7 @@ public class Service {
     this.problemValidator.validateCreate(problemRequest);
     Problem problem = LogicUtils.convertProblemRequestToProblem(problemRequest);
     problem.setState(Problem.State.OPEN);
-    problem.setCreationTime(new Timestamp(System.nanoTime()));
+    problem.setCreationTime(new Timestamp(System.currentTimeMillis()));
     return this.problemRepository.save(problem);
   }
 
@@ -83,7 +83,6 @@ public class Service {
    */
   public Problem updateProblem(Problem problem) {
     this.problemValidator.validateUpdate(problem);
-    problem.setCreationTime(new Timestamp(System.nanoTime()));
     return this.problemRepository.save(problem);
   }
 
