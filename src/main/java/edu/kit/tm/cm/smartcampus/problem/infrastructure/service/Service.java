@@ -71,8 +71,7 @@ public class Service {
     this.problemValidator.validateCreate(problemRequest);
     Problem problem = LogicUtils.convertProblemRequestToProblem(problemRequest);
     problem.setState(Problem.State.OPEN);
-    problem.setCreationTime(new Timestamp(System.nanoTime())); //TODO validator has to check that
-    // Timestamp is empty(?) //TODO von wem ist das TODO? ist glaub veraltet und kann raus(?)
+    problem.setCreationTime(new Timestamp(System.nanoTime()));
     return this.problemRepository.save(problem);
   }
 
