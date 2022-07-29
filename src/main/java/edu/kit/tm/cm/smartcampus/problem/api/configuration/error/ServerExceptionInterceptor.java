@@ -1,8 +1,8 @@
-package edu.kit.tm.cm.smartcampus.problem.api.error;
+package edu.kit.tm.cm.smartcampus.problem.api.configuration.error;
 
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InternalServerErrorException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.InternalServerErrorException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.InvalidArgumentsException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

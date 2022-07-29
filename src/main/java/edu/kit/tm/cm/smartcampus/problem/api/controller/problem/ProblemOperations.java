@@ -1,21 +1,17 @@
-package edu.kit.tm.cm.smartcampus.problem.api.operations;
+package edu.kit.tm.cm.smartcampus.problem.api.controller.problem;
 
-import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Collection;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * This interface provides all rest server operations connected to "/problems" requests. It also
  * provides their {@link GetMapping} for the call url.
  */
-@RequestMapping("/problems")
+@RequestMapping
 public interface ProblemOperations {
 
   /**
@@ -23,26 +19,26 @@ public interface ProblemOperations {
    *
    * @return a collection of all {@link Problem} this domain service manages
    */
-  @GetMapping("")
+  @GetMapping("/problems")
   Collection<Problem> listProblems();
 
   /**
    * Create a new {@link Problem} on "/problems" url in this domain service.
    *
-   * @param problemRequest the request for the problem to be created in this service
+   * @param serverCreateProblemRequest the request for the problem to be created in this service
    * @return the created problem
    */
-  @PostMapping("")
-  Problem createProblem(@RequestBody ProblemRequest problemRequest);
+  @PostMapping("/problems")
+  Problem createProblem(@RequestBody ServerCreateProblemRequest serverCreateProblemRequest);
 
   /**
    * Update a specific {@link Problem} on "/problems" url in this domain service.
    *
-   * @param problem the problem to be updated in this service
+   * @param serverUpdateProblemRequest the problem to be updated in this service
    * @return the updated problem with updated attributes
    */
-  @PutMapping("")
-  Problem updateProblem(@RequestBody Problem problem);
+  @PutMapping("/problems")
+  Problem updateProblem(@RequestBody ServerUpdateProblemRequest serverUpdateProblemRequest);
 
   /**
    * Get a specific {@link Problem} on "/problems/{pin}" url from tis domain service.
@@ -50,7 +46,7 @@ public interface ProblemOperations {
    * @param pin identification number of the requested problem in this domain service
    * @return the requested problem
    */
-  @GetMapping("/{pin}")
+  @GetMapping("/problems/{pin}")
   Problem getProblem(@PathVariable String pin);
 
   /**
@@ -58,6 +54,6 @@ public interface ProblemOperations {
    *
    * @param pin identification number of the problem to be removed
    */
-  @DeleteMapping("/{pin}")
+  @DeleteMapping("/problems/{pin}")
   void removeProblem(@PathVariable String pin);
 }

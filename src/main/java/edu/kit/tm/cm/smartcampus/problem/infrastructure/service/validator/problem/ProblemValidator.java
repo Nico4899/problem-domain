@@ -1,19 +1,23 @@
-package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
+package edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.problem;
 
-import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.repository.problem.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.Validator;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
- * This class is a child implementation of the {@link Validator}, it focuses on validating
- * {@link Problem} requests. It calls parent methods to validate certain attributes.
+ * This class is a child implementation of the {@link Validator}, it focuses on validating {@link
+ * Problem} requests. It calls parent methods to validate certain attributes.
  */
 @Component
-public class ProblemValidator extends Validator<Problem, ProblemRequest> {
+public class ProblemValidator
+    extends Validator<ServerUpdateProblemRequest, ServerCreateProblemRequest> {
 
   /**
    * Instantiates a new problem validator.
@@ -31,7 +35,7 @@ public class ProblemValidator extends Validator<Problem, ProblemRequest> {
   }
 
   @Override
-  public void validateCreate(ProblemRequest requestObject) {
+  public void validateCreate(ServerCreateProblemRequest requestObject) {
     validateNotNull(
         Map.of(
             PROBLEM_REQUEST_NAME,
@@ -62,7 +66,7 @@ public class ProblemValidator extends Validator<Problem, ProblemRequest> {
   }
 
   @Override
-  public void validateUpdate(Problem object) {
+  public void validateUpdate(ServerUpdateProblemRequest object) {
     validateNotNull(
         Map.of(
             PROBLEM_NAME,
@@ -79,8 +83,6 @@ public class ProblemValidator extends Validator<Problem, ProblemRequest> {
             object.getNotificationIdentificationNumber(),
             STATE_NAME,
             object.getState(),
-            CREATION_TIME_NAME,
-            object.getCreationTime(),
             REPORTER_NAME,
             object.getReporter()));
 

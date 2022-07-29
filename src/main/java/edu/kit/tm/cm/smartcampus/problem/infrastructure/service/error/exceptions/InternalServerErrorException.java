@@ -1,4 +1,4 @@
-package edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions;
+package edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions;
 
 /**
  * This exception is thrown whenever some internal server error is captured, it contains a proper

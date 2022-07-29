@@ -1,22 +1,23 @@
-package edu.kit.tm.cm.smartcampus.problem.infrastructure.validator;
+package edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator;
 
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.InvalidArgumentsException;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.exceptions.ResourceNotFoundException;
-import java.util.Map;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.repository.problem.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.InvalidArgumentsException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.ResourceNotFoundException;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
+
+import java.util.Map;
 
 /**
  * This class represents a parent class validator for any given attribute constraints. In case of
  * invalid arguments, it throws {@link InvalidArgumentsException} and in case of nonexistence of
  * given objects in the database, it throws {@link ResourceNotFoundException}.
  *
- * @param <O> the type of which this validator validates objects
- * @param <R> the type of which this validator validates request objects for the objects
+ * @param <S> the type of which this validator validates objects
+ * @param <T> the type of which this validator validates request objects for the objects
  */
-public abstract class Validator<O, R> {
+public abstract class Validator<S, T> {
 
   // public constants
   /**
@@ -228,16 +229,16 @@ public abstract class Validator<O, R> {
   /**
    * Validate create operation.
    *
-   * @param requestObject the request object to be validated
+   * @param object the request object to be validated
    */
-  public abstract void validateCreate(R requestObject);
+  public abstract void validateCreate(T object);
 
   /**
    * Validate update operation.
    *
    * @param object the object to be validated
    */
-  public abstract void validateUpdate(O object);
+  public abstract void validateUpdate(S object);
 
   @NoArgsConstructor
   private static class InvalidArgumentsStringBuilder {

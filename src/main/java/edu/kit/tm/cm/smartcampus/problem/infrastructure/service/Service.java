@@ -1,17 +1,19 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
-import edu.kit.tm.cm.smartcampus.problem.api.requests.ProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.ProblemValidator;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.validator.Validator;
-import edu.kit.tm.cm.smartcampus.problem.logic.LogicUtils;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.repository.problem.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.Validator;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.problem.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collection;
+import edu.kit.tm.cm.smartcampus.problem.logic.operations.utility.DataTransferUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.CrudRepository;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * This class represents the {@link org.springframework.stereotype.Service} of this domain service,
@@ -64,12 +66,14 @@ public class Service {
   /**
    * Create a new {@link Problem} in this domain service.
    *
-   * @param problemRequest the problem to be created
+   * @param serverCreateProblemRequest the problem to be created
    * @return the created problem
    */
-  public Problem createProblem(ProblemRequest problemRequest) {
-    this.problemValidator.validateCreate(problemRequest);
-    Problem problem = LogicUtils.convertProblemRequestToProblem(problemRequest);
+  public Problem createProblem(ServerCreateProblemRequest serverCreateProblemRequest) {
+    this.problemValidator.validateCreate(serverCreateProblemRequest);
+    Problem problem =
+        DataTransferUtils.ServerRequestReader.readServerCreateProblemRequest(
+            serverCreateProblemRequest);
     problem.setState(Problem.State.OPEN);
     problem.setCreationTime(new Timestamp(System.currentTimeMillis()));
     return this.problemRepository.save(problem);
@@ -78,11 +82,14 @@ public class Service {
   /**
    * Update a {@link Problem} in this domain service.
    *
-   * @param problem the problem to be updated
+   * @param serverUpdateProblemRequest the problem to be updated
    * @return the updated problem
    */
-  public Problem updateProblem(Problem problem) {
-    this.problemValidator.validateUpdate(problem);
+  public Problem updateProblem(ServerUpdateProblemRequest serverUpdateProblemRequest) {
+    this.problemValidator.validateUpdate(serverUpdateProblemRequest);
+    Problem problem =
+        DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(
+            serverUpdateProblemRequest);
     return this.problemRepository.save(problem);
   }
 

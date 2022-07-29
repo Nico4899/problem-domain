@@ -1,4 +1,4 @@
-package edu.kit.tm.cm.smartcampus.problem.infrastructure.database;
+package edu.kit.tm.cm.smartcampus.problem.infrastructure.database.repository.problem;
 
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.springframework.data.repository.CrudRepository;
