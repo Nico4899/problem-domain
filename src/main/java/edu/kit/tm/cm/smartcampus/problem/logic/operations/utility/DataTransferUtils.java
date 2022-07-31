@@ -20,8 +20,6 @@ public class DataTransferUtils {
       problem.setDescription(serverCreateProblemRequest.getDescription());
       problem.setReferenceIdentificationNumber(
           serverCreateProblemRequest.getReferenceIdentificationNumber());
-      problem.setNotificationIdentificationNumber(
-          serverCreateProblemRequest.getNotificationIdentificationNumber());
       problem.setReporter(serverCreateProblemRequest.getReporter());
       return problem;
     }

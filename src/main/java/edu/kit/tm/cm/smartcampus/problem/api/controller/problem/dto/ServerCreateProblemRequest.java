@@ -12,6 +12,5 @@ public class ServerCreateProblemRequest {
   private String title;
   private String description;
   private String referenceIdentificationNumber;
-  private String notificationIdentificationNumber;
   private String reporter;
 }

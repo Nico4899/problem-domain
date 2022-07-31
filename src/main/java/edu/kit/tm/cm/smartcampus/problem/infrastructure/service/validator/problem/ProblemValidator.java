@@ -46,8 +46,6 @@ public class ProblemValidator
             requestObject.getDescription(),
             REFERENCE_IDENTIFICATION_NUMBER_NAME,
             requestObject.getReferenceIdentificationNumber(),
-            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-            requestObject.getNotificationIdentificationNumber(),
             REPORTER_NAME,
             requestObject.getReporter()));
 
@@ -60,9 +58,7 @@ public class ProblemValidator
     validateMatchesRegex(
         Map.of(
             REFERENCE_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(requestObject.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN),
-            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(requestObject.getNotificationIdentificationNumber(), NIN_PATTERN)));
+            Pair.of(requestObject.getReferenceIdentificationNumber(), BIN_RIN_CIN_PATTERN)));
   }
 
   @Override

@@ -59,7 +59,7 @@ public class Service {
    * @return the requested problem
    */
   public Problem getProblem(String problemIdentificationNumber) {
-    this.problemValidator.validate(problemIdentificationNumber);
+    // this.problemValidator.validate(problemIdentificationNumber);
     return this.problemRepository.findById(problemIdentificationNumber).get();
   }
 
@@ -70,7 +70,7 @@ public class Service {
    * @return the created problem
    */
   public Problem createProblem(ServerCreateProblemRequest serverCreateProblemRequest) {
-    this.problemValidator.validateCreate(serverCreateProblemRequest);
+    // this.problemValidator.validateCreate(serverCreateProblemRequest);
     Problem problem =
         DataTransferUtils.ServerRequestReader.readServerCreateProblemRequest(
             serverCreateProblemRequest);
@@ -86,7 +86,7 @@ public class Service {
    * @return the updated problem
    */
   public Problem updateProblem(ServerUpdateProblemRequest serverUpdateProblemRequest) {
-    this.problemValidator.validateUpdate(serverUpdateProblemRequest);
+    // this.problemValidator.validateUpdate(serverUpdateProblemRequest);
     Problem problem =
         DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(
             serverUpdateProblemRequest);
@@ -99,7 +99,7 @@ public class Service {
    * @param problemIdentificationNumber the identification number of the problem
    */
   public void removeProblem(String problemIdentificationNumber) {
-    this.problemValidator.validate(problemIdentificationNumber);
+    // this.problemValidator.validate(problemIdentificationNumber);
     problemRepository.deleteById(problemIdentificationNumber);
   }
 }
