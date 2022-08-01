@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * This class represents a request for a Problem.
+ * This class represents a create request for a Problem.
  */
 @Data
 @Setter

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * This class represents an update request for a Problem.
+ */
 @Setter
 @Getter
 @AllArgsConstructor
