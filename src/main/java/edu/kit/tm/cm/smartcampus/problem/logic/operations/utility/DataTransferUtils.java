@@ -36,6 +36,7 @@ public final class DataTransferUtils {
           serverUpdateProblemRequest.getNotificationIdentificationNumber());
       problem.setReporter(serverUpdateProblemRequest.getReporter());
       problem.setState(serverUpdateProblemRequest.getState());
+      problem.setIdentificationNumber(serverUpdateProblemRequest.getIdentificationNumber());
       return problem;
     }
 
