@@ -37,6 +37,7 @@ public class Problem {
   private static final String NOTIFICATION_IDENTIFICATION_NUMBER_COLUMN =
       "notification_identification_number";
   private static final String CREATION_TIME_COLUMN = "creation_time";
+  private static final String LAST_MODIFIED_TIME_COLUMN = "last_modified_time";
   private static final String PROBLEM_SEQUENCE_NAME = "problem_sequence";
   private static final String GENERATOR_PATH =
       "edu.kit.tm.cm.smartcampus.problem.infrastructure.database.PrefixSequenceGenerator";
@@ -65,6 +66,9 @@ public class Problem {
 
   @Column(name = CREATION_TIME_COLUMN)
   private Timestamp creationTime;
+
+  @Column(name = LAST_MODIFIED_TIME_COLUMN)
+  private Timestamp lastModifiedTime;
 
   private String title;
   private String description;
