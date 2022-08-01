@@ -1,15 +1,14 @@
-package edu.kit.tm.cm.smartcampus.problem.api.controller.problem;
+package edu.kit.tm.cm.smartcampus.problem.api.controller;
 
 import edu.kit.tm.cm.smartcampus.problem.api.configuration.error.ServerExceptionInterceptor;
-import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.Service;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Collection;
 
 /**
  * This class represents the server controller for this domain service. It holds a Spring

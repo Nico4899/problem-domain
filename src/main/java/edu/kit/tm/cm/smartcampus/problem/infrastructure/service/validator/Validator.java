@@ -1,23 +1,22 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator;
 
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.repository.problem.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.InvalidArgumentsException;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.ResourceNotFoundException;
+import java.util.List;
+import java.util.Map;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
-
-import java.util.Map;
-
+import org.apache.commons.lang3.tuple.Pair;
 /**
  * This class represents a parent class validator for any given attribute constraints. In case of
  * invalid arguments, it throws {@link InvalidArgumentsException} and in case of nonexistence of
  * given objects in the database, it throws {@link ResourceNotFoundException}.
  *
- * @param <S> the type of which this validator validates objects
- * @param <T> the type of which this validator validates request objects for the objects
+ * @param <O> the type of which this validator validates update request objects
+ * @param <R> the other type of which the validator validates create request objects
  */
-public abstract class Validator<S, T> {
+public abstract class Validator<O, R> {
 
   // public constants
   /**
@@ -103,11 +102,6 @@ public abstract class Validator<S, T> {
    */
   public static final String REPORTER_NAME = "reporter";
 
-  /**
-   * The constant CREATION_TIME_NAME.
-   */
-  public static final String CREATION_TIME_NAME = "creation_time";
-
   // private constants
   private static final String NULL = "null";
   private static final String SHOULD_NOT_BE_NULL_MESSAGE = "should not be null";
@@ -128,16 +122,16 @@ public abstract class Validator<S, T> {
   /**
    * Validates weather objects are not null or not.
    *
-   * @param objects Map of objects to be checked and their names (key=name, value=object)
+   * @param objects List of objects to be checked and their names (key=name, value=object)
    */
-  protected void validateNotNull(Map<String, Object> objects) {
+  protected void validateNotNull(List<Pair<String,Object>> objects) {
     InvalidArgumentsStringBuilder invalidArgumentsStringBuilder =
         new InvalidArgumentsStringBuilder();
     boolean valid = true;
 
-    for (Map.Entry<String, Object> entry : objects.entrySet()) {
-      if (entry.getValue() == null) {
-        invalidArgumentsStringBuilder.appendMessage(entry.getKey(), NULL,
+    for (Pair<String,Object> pair : objects) {
+      if (pair.getValue() == null) {
+        invalidArgumentsStringBuilder.appendMessage(pair.getKey(), NULL,
             SHOULD_NOT_BE_NULL_MESSAGE, true);
         valid = false;
       }
@@ -175,7 +169,7 @@ public abstract class Validator<S, T> {
    * Validates weather Strings match given regexes or not.
    *
    * @param strings Map of strings and their regexes to be checked and their names (key=name,
-   *                value=pair of string and regex)
+   *                value=pair of string and regex (key=string, value=regex))
    */
   protected void validateMatchesRegex(Map<String, Pair<String, String>> strings) {
     InvalidArgumentsStringBuilder invalidArgumentsStringBuilder =
@@ -183,9 +177,9 @@ public abstract class Validator<S, T> {
     boolean valid = true;
 
     for (Map.Entry<String, Pair<String, String>> entry : strings.entrySet()) {
-      if (!entry.getValue().getFirst().matches(entry.getValue().getSecond())) {
-        invalidArgumentsStringBuilder.appendMessage(entry.getKey(), entry.getValue().getFirst(),
-            SHOULD_MATCH_MESSAGE + entry.getValue().getSecond(), true);
+      if (!entry.getValue().getKey().matches(entry.getValue().getValue())) {
+        invalidArgumentsStringBuilder.appendMessage(entry.getKey(), entry.getValue().getKey(),
+            String.format(SHOULD_MATCH_MESSAGE, entry.getValue().getValue()), true);
         valid = false;
       }
     }
@@ -213,11 +207,12 @@ public abstract class Validator<S, T> {
    * @param identificationNumber the identification number
    */
   public void validate(String identificationNumber) {
-    validateNotNull(Map.of(IDENTIFICATION_NUMBER_NAME, identificationNumber));
+    validateNotNull(List.of(Pair.of(IDENTIFICATION_NUMBER_NAME, identificationNumber)));
     validateMatchesRegex(Map.of(IDENTIFICATION_NUMBER_NAME, Pair.of(identificationNumber,
         getValidateRegex())));
     validateExists(identificationNumber, IDENTIFICATION_NUMBER_NAME);
   }
+
 
   /**
    * Gets validate regex for the {@link Validator#validate(String)} method.
@@ -229,16 +224,16 @@ public abstract class Validator<S, T> {
   /**
    * Validate create operation.
    *
-   * @param object the request object to be validated
+   * @param requestObject the request object to be validated
    */
-  public abstract void validateCreate(T object);
+  public abstract void validateCreate(R requestObject);
 
   /**
    * Validate update operation.
    *
    * @param object the object to be validated
    */
-  public abstract void validateUpdate(S object);
+  public abstract void validateUpdate(O object);
 
   @NoArgsConstructor
   private static class InvalidArgumentsStringBuilder {

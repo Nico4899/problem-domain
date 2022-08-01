@@ -1,19 +1,18 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
-import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.repository.problem.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.Validator;
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.problem.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import edu.kit.tm.cm.smartcampus.problem.logic.operations.utility.DataTransferUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.repository.CrudRepository;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.repository.CrudRepository;
 
 /**
  * This class represents the {@link org.springframework.stereotype.Service} of this domain service,
@@ -59,7 +58,7 @@ public class Service {
    * @return the requested problem
    */
   public Problem getProblem(String problemIdentificationNumber) {
-    // this.problemValidator.validate(problemIdentificationNumber);
+    this.problemValidator.validate(problemIdentificationNumber);
     return this.problemRepository.findById(problemIdentificationNumber).get();
   }
 
@@ -70,10 +69,9 @@ public class Service {
    * @return the created problem
    */
   public Problem createProblem(ServerCreateProblemRequest serverCreateProblemRequest) {
-    // this.problemValidator.validateCreate(serverCreateProblemRequest);
+    this.problemValidator.validateCreate(serverCreateProblemRequest);
     Problem problem =
-        DataTransferUtils.ServerRequestReader.readServerCreateProblemRequest(
-            serverCreateProblemRequest);
+        DataTransferUtils.ServerRequestReader.readServerCreateProblemRequest(serverCreateProblemRequest);
     problem.setState(Problem.State.OPEN);
     problem.setCreationTime(new Timestamp(System.currentTimeMillis()));
     return this.problemRepository.save(problem);
@@ -86,10 +84,11 @@ public class Service {
    * @return the updated problem
    */
   public Problem updateProblem(ServerUpdateProblemRequest serverUpdateProblemRequest) {
-    // this.problemValidator.validateUpdate(serverUpdateProblemRequest);
+    this.problemValidator.validateUpdate(serverUpdateProblemRequest);
     Problem problem =
-        DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(
-            serverUpdateProblemRequest);
+        DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(serverUpdateProblemRequest);
+    problem.setCreationTime(this.problemRepository.findById(problem.getIdentificationNumber()).get()
+        .getCreationTime());
     return this.problemRepository.save(problem);
   }
 
@@ -99,7 +98,7 @@ public class Service {
    * @param problemIdentificationNumber the identification number of the problem
    */
   public void removeProblem(String problemIdentificationNumber) {
-    // this.problemValidator.validate(problemIdentificationNumber);
+    this.problemValidator.validate(problemIdentificationNumber);
     problemRepository.deleteById(problemIdentificationNumber);
   }
 }
