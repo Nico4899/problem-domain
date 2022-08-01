@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class ServerUpdateProblemRequest {
+
   private String identificationNumber;
   private String title;
   private String description;

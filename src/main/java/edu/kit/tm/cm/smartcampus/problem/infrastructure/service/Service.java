@@ -71,7 +71,8 @@ public class Service {
   public Problem createProblem(ServerCreateProblemRequest serverCreateProblemRequest) {
     this.problemValidator.validateCreate(serverCreateProblemRequest);
     Problem problem =
-        DataTransferUtils.ServerRequestReader.readServerCreateProblemRequest(serverCreateProblemRequest);
+        DataTransferUtils.ServerRequestReader.readServerCreateProblemRequest(
+            serverCreateProblemRequest);
     problem.setState(Problem.State.OPEN);
     problem.setCreationTime(new Timestamp(System.currentTimeMillis()));
     return this.problemRepository.save(problem);
@@ -86,7 +87,8 @@ public class Service {
   public Problem updateProblem(ServerUpdateProblemRequest serverUpdateProblemRequest) {
     this.problemValidator.validateUpdate(serverUpdateProblemRequest);
     Problem problem =
-        DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(serverUpdateProblemRequest);
+        DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(
+            serverUpdateProblemRequest);
     problem.setCreationTime(this.problemRepository.findById(problem.getIdentificationNumber()).get()
         .getCreationTime());
     return this.problemRepository.save(problem);

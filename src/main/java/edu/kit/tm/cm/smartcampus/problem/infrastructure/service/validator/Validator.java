@@ -6,8 +6,9 @@ import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions
 import java.util.List;
 import java.util.Map;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * This class represents a parent class validator for any given attribute constraints. In case of
  * invalid arguments, it throws {@link InvalidArgumentsException} and in case of nonexistence of
@@ -124,12 +125,12 @@ public abstract class Validator<O, R> {
    *
    * @param objects List of objects to be checked and their names (key=name, value=object)
    */
-  protected void validateNotNull(List<Pair<String,Object>> objects) {
+  protected void validateNotNull(List<Pair<String, Object>> objects) {
     InvalidArgumentsStringBuilder invalidArgumentsStringBuilder =
         new InvalidArgumentsStringBuilder();
     boolean valid = true;
 
-    for (Pair<String,Object> pair : objects) {
+    for (Pair<String, Object> pair : objects) {
       if (pair.getValue() == null) {
         invalidArgumentsStringBuilder.appendMessage(pair.getKey(), NULL,
             SHOULD_NOT_BE_NULL_MESSAGE, true);

@@ -13,6 +13,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class ServerCreateProblemRequest {
+
   private String title;
   private String description;
   private String referenceIdentificationNumber;

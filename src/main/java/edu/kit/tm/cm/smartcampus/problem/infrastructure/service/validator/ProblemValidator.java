@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
  * {@link Problem} requests. It calls parent methods to validate certain attributes.
  */
 @Component
-public class ProblemValidator extends Validator<ServerUpdateProblemRequest, ServerCreateProblemRequest> {
+public class ProblemValidator extends
+    Validator<ServerUpdateProblemRequest, ServerCreateProblemRequest> {
 
   /**
    * Instantiates a new problem validator.
