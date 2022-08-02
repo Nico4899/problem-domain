@@ -75,6 +75,56 @@ public class Problem {
   private State state;
   private String reporter;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Problem problem)) {
+      return false;
+    }
+
+    if (!identificationNumber.equals(problem.identificationNumber)) {
+      return false;
+    }
+    if (!referenceIdentificationNumber.equals(problem.referenceIdentificationNumber)) {
+      return false;
+    }
+    if (!notificationIdentificationNumber.equals(problem.notificationIdentificationNumber)) {
+      return false;
+    }
+    if (!creationTime.equals(problem.creationTime)) {
+      return false;
+    }
+    if (!lastModifiedTime.equals(problem.lastModifiedTime)) {
+      return false;
+    }
+    if (!title.equals(problem.title)) {
+      return false;
+    }
+    if (!description.equals(problem.description)) {
+      return false;
+    }
+    if (state != problem.state) {
+      return false;
+    }
+    return reporter.equals(problem.reporter);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = identificationNumber.hashCode();
+    result = 31 * result + referenceIdentificationNumber.hashCode();
+    result = 31 * result + notificationIdentificationNumber.hashCode();
+    result = 31 * result + creationTime.hashCode();
+    result = 31 * result + lastModifiedTime.hashCode();
+    result = 31 * result + title.hashCode();
+    result = 31 * result + description.hashCode();
+    result = 31 * result + state.hashCode();
+    result = 31 * result + reporter.hashCode();
+    return result;
+  }
+
   /**
    * This enum describes the possible states of a problem.
    */

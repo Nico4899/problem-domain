@@ -1,106 +1,117 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller.problem;
 
-import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.Service;
-import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.ArgumentsProvider;
-import org.junit.jupiter.params.provider.ArgumentsSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import static org.mockito.Mockito.mock;
 
-@SpringJUnitConfig
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.Service;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.State;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 public class ProblemControllerTest {
 
-  /*private static final Service SERVICE = mock(Service.class);
+  private static final String PROBLEM_TITLE = "Elevator is defect";
+  private static final String PROBLEM_DESCRIPTION = "Cannot reach any higher floor than second level";
+  private static final String REFERENCE_IDENTIFICATION_NUMBER = "b-1";
+  private static final String NOTIFICATION_IDENTIFICATION_NUMBER = "n-1";
+  private static final String PROBLEM_REPORTER = "Johannes von Geisau";
+  private static final State PROBLEM_STATE = State.OPEN;
+
+  private static final String UPDATED_PROBLEM_TITLE = "Elevator is defect!";
+  private static final String UPDATED_PROBLEM_DESCRIPTION = "Cannot reach any higher floor than "
+      + "second level because of a defect.";
+  private static final String UPDATED_REFERENCE_IDENTIFICATION_NUMBER = "b-2";
+  private static final String UPDATED_NOTIFICATION_IDENTIFICATION_NUMBER = "n-2";
+  private static final String UPDATED_PROBLEM_REPORTER = "Johannes von Geisau";
+  private static final State UPDATED_PROBLEM_STATE = State.ACCEPTED;
+
+  private static final Service SERVICE = mock(Service.class);
   private static final ProblemController PROBLEM_CONTROLLER = new ProblemController(SERVICE);
-  private static final String PROBLEM_1_TITLE = "Elevator is defect";
-  private static final String PROBLEM_2_TITLE = "Outlet is defect";
-  private static final String PROBLEM_1_DESCRIPTION = "Cannot reach any higher floor than second level";
-  private static final String PROBLEM_2_DESCRIPTION = "Outlet does not provide power";
-  private static final String BUILDING_1_IDENTIFICATION_NUMBER = "b-1";
-  private static final String BUILDING_2_IDENTIFICATION_NUMBER = "b-2";
-  private static final String NOTIFICATION_1_IDENTIFICATION_NUMBER = "n-1";
-  private static final String NOTIFICATION_2_IDENTIFICATION_NUMBER = "n-2";
-  private static final String PROBLEM_REPORTER_1 = "Johannes von Geisau";
-  private static final String PROBLEM_REPORTER_2 = "Bastian Bacher";
+  private static ServerCreateProblemRequest serverCreateProblemRequest;
+  private static ServerUpdateProblemRequest serverUpdateProblemRequest;
+  private static String problemIdentificationNumber;
+  private static Problem problem;
 
-  private static final Map<String, ServerCreateProblemRequest> testProblemCreateRequestsMap = new HashMap<>();
-  private static Collection<ServerCreateProblemRequest> testProblemCreateRequests;
-
-  @Autowired
-  ProblemController problemController;
-
-  @BeforeAll
-  public static void setUp() { buildTestMappings();
-  }
-
-  private static void buildTestMappings() {
-
-
-    ServerCreateProblemRequest createProblemRequest1 = new ServerCreateProblemRequest(
-        PROBLEM_1_TITLE,
-        PROBLEM_1_DESCRIPTION,
-        BUILDING_1_IDENTIFICATION_NUMBER,
-        NOTIFICATION_1_IDENTIFICATION_NUMBER,
-        PROBLEM_REPORTER_1
+  @BeforeEach
+  public void setUp() {
+    serverCreateProblemRequest = new ServerCreateProblemRequest(
+        PROBLEM_TITLE,
+        PROBLEM_DESCRIPTION,
+        REFERENCE_IDENTIFICATION_NUMBER,
+        NOTIFICATION_IDENTIFICATION_NUMBER,
+        PROBLEM_REPORTER
     );
-    ServerCreateProblemRequest createProblemRequest2 = new ServerCreateProblemRequest(
-        PROBLEM_2_TITLE,
-        PROBLEM_2_DESCRIPTION,
-        BUILDING_2_IDENTIFICATION_NUMBER,
-        NOTIFICATION_2_IDENTIFICATION_NUMBER,
-        PROBLEM_REPORTER_2
+
+    problem = new Problem();
+    problem.setState(PROBLEM_STATE);
+    problem.setDescription(PROBLEM_DESCRIPTION);
+    problem.setReporter(PROBLEM_REPORTER);
+    problem.setTitle(PROBLEM_TITLE);
+    problem.setNotificationIdentificationNumber(NOTIFICATION_IDENTIFICATION_NUMBER);
+    problem.setReferenceIdentificationNumber(REFERENCE_IDENTIFICATION_NUMBER);
+    problem.setCreationTime(new Timestamp(System.currentTimeMillis()));
+    problem.setLastModifiedTime(new Timestamp(System.currentTimeMillis()));
+
+    problemIdentificationNumber = problem.getIdentificationNumber();
+
+    serverUpdateProblemRequest = new ServerUpdateProblemRequest(
+        problemIdentificationNumber,
+        UPDATED_PROBLEM_TITLE,
+        UPDATED_PROBLEM_DESCRIPTION,
+        UPDATED_REFERENCE_IDENTIFICATION_NUMBER,
+        UPDATED_NOTIFICATION_IDENTIFICATION_NUMBER,
+        UPDATED_PROBLEM_REPORTER,
+        UPDATED_PROBLEM_STATE
     );
-    testProblemCreateRequestsMap.put(PROBLEM_1_TITLE, createProblemRequest1);
-    testProblemCreateRequestsMap.put(PROBLEM_2_TITLE, createProblemRequest2);
-    testProblemCreateRequests = testProblemCreateRequestsMap.values();
   }
 
-  @ParameterizedTest
-  @ArgumentsSource(ServerCreateProblemRequestsProvider.class)
-  void createProblemsTest(ServerCreateProblemRequest serverCreateProblemRequest) {
-    String problemIdentificationNumber = problemController.createProblem(serverCreateProblemRequest)
-        .getIdentificationNumber();
-    Assertions.assertDoesNotThrow( () -> problemController.getProblem(problemIdentificationNumber));
-
-    Assertions.assertEquals(problemIdentificationNumber,
-        problemController.getProblem(problemIdentificationNumber).getIdentificationNumber());
-    Assertions.assertEquals(serverCreateProblemRequest.getTitle(),
-        problemController.getProblem(problemIdentificationNumber).getTitle());
-    Assertions.assertEquals(serverCreateProblemRequest.getDescription(),
-        problemController.getProblem(problemIdentificationNumber).getDescription());
-    Assertions.assertEquals(serverCreateProblemRequest.getNotificationIdentificationNumber(),
-        problemController.getProblem(problemIdentificationNumber).getNotificationIdentificationNumber());
-    Assertions.assertEquals(serverCreateProblemRequest.getReferenceIdentificationNumber(),
-        problemController.getProblem(problemIdentificationNumber).getReferenceIdentificationNumber());
-    Assertions.assertEquals(serverCreateProblemRequest.getReporter(),
-        problemController.getProblem(problemIdentificationNumber).getReporter());
-    Assertions.assertEquals(Problem.State.OPEN,
-        problemController.getProblem(problemIdentificationNumber).getState());
+  @Test
+  void createProblem_ShouldCreateNewProblem() {
+    Mockito.when(SERVICE.createProblem(serverCreateProblemRequest)).thenReturn(problem);
+    Problem createdProblem = PROBLEM_CONTROLLER.createProblem(serverCreateProblemRequest);
+    Assertions.assertEquals(createdProblem, problem);
   }
 
-  private static class ServerCreateProblemRequestsProvider implements ArgumentsProvider {
+  @Test
+  void updateProblem_ShouldUpdateProblem() {
+    problem.setState(UPDATED_PROBLEM_STATE);
+    problem.setDescription(UPDATED_PROBLEM_DESCRIPTION);
+    problem.setReporter(UPDATED_PROBLEM_REPORTER);
+    problem.setTitle(UPDATED_PROBLEM_TITLE);
+    problem.setNotificationIdentificationNumber(UPDATED_NOTIFICATION_IDENTIFICATION_NUMBER);
+    problem.setReferenceIdentificationNumber(UPDATED_REFERENCE_IDENTIFICATION_NUMBER);
+    problem.setLastModifiedTime(new Timestamp(System.currentTimeMillis()));
 
-    @Override
-    public Stream<? extends Arguments> provideArguments(ExtensionContext extensionContext) {
-      return Stream.of(
-          Arguments.of(testProblemCreateRequestsMap.get(PROBLEM_1_TITLE)),
-          Arguments.of(testProblemCreateRequestsMap.get(PROBLEM_2_TITLE))
-      );
-    }
-  }*/
+    Mockito.when(SERVICE.updateProblem(serverUpdateProblemRequest)).thenReturn(problem);
+    Problem updatedProblem = PROBLEM_CONTROLLER.updateProblem(serverUpdateProblemRequest);
+    updatedProblem.setLastModifiedTime(problem.getLastModifiedTime());
+    Assertions.assertEquals(updatedProblem, problem);
+  }
+
+  @Test
+  void getProblem_ShouldGetProblem(){
+    Mockito.when(SERVICE.getProblem(problemIdentificationNumber)).thenReturn(problem);
+    Problem fetchedProblem = PROBLEM_CONTROLLER.getProblem(problemIdentificationNumber);
+    Assertions.assertEquals(fetchedProblem, problem);
+  }
+
+  @Test
+  void listProblems_ShouldListProblems(){
+    Mockito.when(SERVICE.listProblems()).thenReturn(List.of(problem));
+    Collection<Problem> fetchedProblems = PROBLEM_CONTROLLER.listProblems();
+    Assertions.assertEquals(fetchedProblems, List.of(problem));
+  }
+
+  @Test
+  void removeProblem_ShouldRemoveProblem(){
+    //nix (?)
+  }
 
 }
