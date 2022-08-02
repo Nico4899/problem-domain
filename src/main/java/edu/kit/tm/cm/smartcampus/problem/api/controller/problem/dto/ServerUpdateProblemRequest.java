@@ -1,4 +1,4 @@
-package edu.kit.tm.cm.smartcampus.problem.api.controller.dto;
+package edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto;
 
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.State;
 import lombok.AllArgsConstructor;

@@ -1,7 +1,7 @@
 package edu.kit.tm.cm.smartcampus.problem.logic.operations.utility;
 
-import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerCreateProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

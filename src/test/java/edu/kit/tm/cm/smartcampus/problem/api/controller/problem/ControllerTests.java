@@ -1,6 +1,6 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller.problem;
 
-import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 

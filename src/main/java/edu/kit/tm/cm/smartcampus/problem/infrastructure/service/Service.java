@@ -1,7 +1,7 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
-import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerCreateProblemRequest;
-import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerUpdateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
+import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.Validator;
