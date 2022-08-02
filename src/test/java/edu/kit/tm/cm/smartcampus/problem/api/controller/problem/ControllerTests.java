@@ -17,7 +17,7 @@ public class ControllerTests {
   private static final String BUILDING_2_IDENTIFICATION_NUMBER = "b-2";
   private static final String NOTIFICATION_1_IDENTIFICATION_NUMBER = "n-1";
   private static final String NOTIFICATION_2_IDENTIFICATION_NUMBER = "n-2";
-  private static final String PROBLEM_REPORTER_1 = "Johannes von Geissau";
+  private static final String PROBLEM_REPORTER_1 = "Johannes von Geisau";
   private static final String PROBLEM_REPORTER_2 = "Bastian Bacher";
 
   private static Collection<ServerCreateProblemRequest> testProblemCreateRequests;
