@@ -1,6 +1,5 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller.problem;
 
-import edu.kit.tm.cm.smartcampus.problem.api.controller.dto.ServerCreateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.Service;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.mock;
 
 @SpringJUnitConfig
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class ControllerTests {
+public class ProblemControllerTest {
 
   /*private static final Service SERVICE = mock(Service.class);
   private static final ProblemController PROBLEM_CONTROLLER = new ProblemController(SERVICE);
