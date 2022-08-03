@@ -75,8 +75,8 @@ public class Problem {
   private State state;
   private String reporter;
 
-  @Override
-  public boolean equals(Object o) {
+ /*  @Override
+ public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -123,7 +123,7 @@ public class Problem {
     result = 31 * result + state.hashCode();
     result = 31 * result + reporter.hashCode();
     return result;
-  }
+  }*/
 
   /**
    * This enum describes the possible states of a problem.
