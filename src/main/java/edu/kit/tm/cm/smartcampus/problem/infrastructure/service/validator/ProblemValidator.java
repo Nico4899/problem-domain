@@ -42,8 +42,6 @@ public class ProblemValidator extends
             Pair.of(DESCRIPTION_NAME, serverCreateProblemRequest.getDescription()),
             Pair.of(REFERENCE_IDENTIFICATION_NUMBER_NAME,
                 serverCreateProblemRequest.getReferenceIdentificationNumber()),
-            Pair.of(NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-                serverCreateProblemRequest.getNotificationIdentificationNumber()),
             Pair.of(REPORTER_NAME, serverCreateProblemRequest.getReporter())));
 
     validateNotEmpty(
@@ -52,14 +50,16 @@ public class ProblemValidator extends
             DESCRIPTION_NAME, serverCreateProblemRequest.getDescription(),
             REPORTER_NAME, serverCreateProblemRequest.getReporter()));
 
-    validateMatchesRegex(
-        Map.of(
-            REFERENCE_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(serverCreateProblemRequest.getReferenceIdentificationNumber(),
-                BIN_RIN_CIN_PATTERN),
-            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(serverCreateProblemRequest.getNotificationIdentificationNumber(),
-                NIN_PATTERN)));
+    Map validateRegexesMap = Map.of(
+        REFERENCE_IDENTIFICATION_NUMBER_NAME,
+        Pair.of(serverCreateProblemRequest.getReferenceIdentificationNumber(),
+            BIN_RIN_CIN_PATTERN));
+    if (serverCreateProblemRequest.getNotificationIdentificationNumber() != null) {
+      validateRegexesMap.put(NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+          Pair.of(serverCreateProblemRequest.getNotificationIdentificationNumber(),
+              NIN_PATTERN));
+    }
+    validateMatchesRegex(validateRegexesMap);
   }
 
   @Override
@@ -71,8 +71,6 @@ public class ProblemValidator extends
         Pair.of(IDENTIFICATION_NUMBER_NAME, serverUpdateProblemRequest.getIdentificationNumber()),
         Pair.of(REFERENCE_IDENTIFICATION_NUMBER_NAME,
             serverUpdateProblemRequest.getReferenceIdentificationNumber()),
-        Pair.of(NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-            serverUpdateProblemRequest.getNotificationIdentificationNumber()),
         Pair.of(STATE_NAME, serverUpdateProblemRequest.getState()),
         Pair.of(REPORTER_NAME, serverUpdateProblemRequest.getReporter())));
 
@@ -82,16 +80,17 @@ public class ProblemValidator extends
             DESCRIPTION_NAME, serverUpdateProblemRequest.getDescription(),
             REPORTER_NAME, serverUpdateProblemRequest.getReporter()));
 
-    validateMatchesRegex(
-        Map.of(
-            IDENTIFICATION_NUMBER_NAME,
-            Pair.of(serverUpdateProblemRequest.getIdentificationNumber(), PIN_PATTERN),
-            REFERENCE_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(serverUpdateProblemRequest.getReferenceIdentificationNumber(),
-                BIN_RIN_CIN_PATTERN),
-            NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
-            Pair.of(serverUpdateProblemRequest.getNotificationIdentificationNumber(),
-                NIN_PATTERN)));
+    Map validateRegexesMap = Map.of(IDENTIFICATION_NUMBER_NAME,
+        Pair.of(serverUpdateProblemRequest.getIdentificationNumber(), PIN_PATTERN),
+        REFERENCE_IDENTIFICATION_NUMBER_NAME,
+        Pair.of(serverUpdateProblemRequest.getReferenceIdentificationNumber(),
+            BIN_RIN_CIN_PATTERN));
+    if (serverUpdateProblemRequest.getNotificationIdentificationNumber() != null) {
+      validateRegexesMap.put(NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
+          Pair.of(serverUpdateProblemRequest.getNotificationIdentificationNumber(),
+              NIN_PATTERN));
+    }
+    validateMatchesRegex(validateRegexesMap);
 
     validateExists(serverUpdateProblemRequest.getIdentificationNumber(),
         PROBLEM_IDENTIFICATION_NUMBER_NAME);
