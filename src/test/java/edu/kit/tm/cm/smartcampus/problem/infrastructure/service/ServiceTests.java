@@ -132,7 +132,7 @@ public class ServiceTests {
   }
 
   @Test
-  void createProblem_ShouldCreateNewProblem() {
+  void createProblem_ShouldCreateNewProblem() { //TODO testen ob state der richtige ist
     Mockito.when(PROBLEM_REPOSITORY.save(any())).thenAnswer(i -> i.getArguments()[0]);
     Timestamp beforeCreate = new Timestamp(System.currentTimeMillis());
     Problem createdProblem = SERVICE.createProblem(serverCreateProblemRequest);

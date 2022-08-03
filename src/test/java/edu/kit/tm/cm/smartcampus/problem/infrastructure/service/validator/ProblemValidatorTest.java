@@ -43,8 +43,6 @@ class ProblemValidatorTest {
   @BeforeAll
   static void setUp() {
     Mockito.when(PROBLEM_REPOSITORY.existsById(PROBLEM_IDENTIFICATION_NUMBER)).thenReturn(true);
-    Mockito.when(PROBLEM_REPOSITORY.existsById(INVALID_PROBLEM_IDENTIFICATION_NUMBER))
-        .thenReturn(false);
   }
 
   @ParameterizedTest
