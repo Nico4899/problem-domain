@@ -36,9 +36,9 @@ public class ProblemValidator extends
 
   @Override
   public void validateCreate(ServerCreateProblemRequest serverCreateProblemRequest) {
+    validateNotNull(List.of(Pair.of(PROBLEM_REQUEST_NAME, serverCreateProblemRequest)));
     validateNotNull(
         List.of(
-            Pair.of(PROBLEM_REQUEST_NAME, serverCreateProblemRequest),
             Pair.of(TITLE_NAME, serverCreateProblemRequest.getTitle()),
             Pair.of(DESCRIPTION_NAME, serverCreateProblemRequest.getDescription()),
             Pair.of(REFERENCE_IDENTIFICATION_NUMBER_NAME,
@@ -65,8 +65,8 @@ public class ProblemValidator extends
 
   @Override
   public void validateUpdate(ServerUpdateProblemRequest serverUpdateProblemRequest) {
+    validateNotNull(List.of(Pair.of(PROBLEM_NAME, serverUpdateProblemRequest)));
     validateNotNull(List.of(
-        Pair.of(PROBLEM_NAME, serverUpdateProblemRequest),
         Pair.of(TITLE_NAME, serverUpdateProblemRequest.getTitle()),
         Pair.of(DESCRIPTION_NAME, serverUpdateProblemRequest.getDescription()),
         Pair.of(IDENTIFICATION_NUMBER_NAME, serverUpdateProblemRequest.getIdentificationNumber()),
