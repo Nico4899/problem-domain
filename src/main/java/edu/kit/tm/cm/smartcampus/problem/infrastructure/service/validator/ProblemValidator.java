@@ -4,6 +4,7 @@ import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreate
 import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
@@ -50,10 +51,10 @@ public class ProblemValidator extends
             DESCRIPTION_NAME, serverCreateProblemRequest.getDescription(),
             REPORTER_NAME, serverCreateProblemRequest.getReporter()));
 
-    Map validateRegexesMap = Map.of(
+    Map<String,Pair<String,String>> validateRegexesMap = new HashMap<>(Map.of(
         REFERENCE_IDENTIFICATION_NUMBER_NAME,
         Pair.of(serverCreateProblemRequest.getReferenceIdentificationNumber(),
-            BIN_RIN_CIN_PATTERN));
+            BIN_RIN_CIN_PATTERN)));
     if (serverCreateProblemRequest.getNotificationIdentificationNumber() != null) {
       validateRegexesMap.put(NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
           Pair.of(serverCreateProblemRequest.getNotificationIdentificationNumber(),
@@ -80,11 +81,12 @@ public class ProblemValidator extends
             DESCRIPTION_NAME, serverUpdateProblemRequest.getDescription(),
             REPORTER_NAME, serverUpdateProblemRequest.getReporter()));
 
-    Map validateRegexesMap = Map.of(IDENTIFICATION_NUMBER_NAME,
-        Pair.of(serverUpdateProblemRequest.getIdentificationNumber(), PIN_PATTERN),
-        REFERENCE_IDENTIFICATION_NUMBER_NAME,
-        Pair.of(serverUpdateProblemRequest.getReferenceIdentificationNumber(),
-            BIN_RIN_CIN_PATTERN));
+    Map<String,Pair<String,String>> validateRegexesMap = new HashMap<>(
+        Map.of(IDENTIFICATION_NUMBER_NAME,
+            Pair.of(serverUpdateProblemRequest.getIdentificationNumber(), PIN_PATTERN),
+            REFERENCE_IDENTIFICATION_NUMBER_NAME,
+            Pair.of(serverUpdateProblemRequest.getReferenceIdentificationNumber(),
+                BIN_RIN_CIN_PATTERN)));
     if (serverUpdateProblemRequest.getNotificationIdentificationNumber() != null) {
       validateRegexesMap.put(NOTIFICATION_IDENTIFICATION_NUMBER_NAME,
           Pair.of(serverUpdateProblemRequest.getNotificationIdentificationNumber(),
