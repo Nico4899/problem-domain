@@ -18,12 +18,6 @@ public final class TestUtils {
     if (!problem1.getNotificationIdentificationNumber().equals(problem2.getNotificationIdentificationNumber())) {
       return false;
     }
-    if (!problem1.getCreationTime().equals(problem2.getCreationTime())) {
-      return false;
-    }
-    if (!problem1.getLastModifiedTime().equals(problem2.getLastModifiedTime())) {
-      return false;
-    }
     if (!problem1.getTitle().equals(problem2.getTitle())) {
       return false;
     }
