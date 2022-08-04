@@ -6,6 +6,7 @@ import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreate
 import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.InvalidArgumentsException;
+import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exceptions.ResourceNotFoundException;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem.State;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
@@ -27,6 +28,7 @@ class ProblemValidatorTest {
   private static final State PROBLEM_STATE = State.OPEN;
   private static final String EMPTY_STRING = "";
   private static final String INVALID_PROBLEM_IDENTIFICATION_NUMBER = "p1";
+  private static final String NOT_EXISTING_PROBLEM_IDENTIFICATION_NUMBER = "p-42";
   private static final String INVALID_REFERENCE_IDENTIFICATION_NUMBER = "b1";
   private static final String INVALID_NOTIFICATION_IDENTIFICATION_NUMBER = "n1";
 
@@ -35,14 +37,16 @@ class ProblemValidatorTest {
   private static final ProblemValidator PROBLEM_VALIDATOR = new ProblemValidator(
       PROBLEM_REPOSITORY);
 
-  @Test
-  void getValidateRegex_ShouldReturnPINPattern() {
-    Assertions.assertEquals(Validator.PIN_PATTERN, PROBLEM_VALIDATOR.getValidateRegex());
-  }
-
   @BeforeAll
   static void setUp() {
     Mockito.when(PROBLEM_REPOSITORY.existsById(PROBLEM_IDENTIFICATION_NUMBER)).thenReturn(true);
+    Mockito.when(PROBLEM_REPOSITORY.existsById(NOT_EXISTING_PROBLEM_IDENTIFICATION_NUMBER))
+        .thenReturn(false);
+  }
+
+  @Test
+  void getValidateRegex_ShouldReturnPINPattern() {
+    Assertions.assertEquals(Validator.PIN_PATTERN, PROBLEM_VALIDATOR.getValidateRegex());
   }
 
   @ParameterizedTest
@@ -70,13 +74,20 @@ class ProblemValidatorTest {
   }
 
   @ParameterizedTest
-  @MethodSource("provideInvalidServerUpdateProblemRequests")
-  void validateUpdate_ShouldThrowException(
+  @MethodSource("provideInvalidArgumentsServerUpdateProblemRequests")
+  void validateUpdate_ShouldThrowInvalidArgumentsException(
       ServerUpdateProblemRequest serverUpdateProblemRequest) {
     Assertions.assertThrows(InvalidArgumentsException.class,
         () -> PROBLEM_VALIDATOR.validateUpdate(serverUpdateProblemRequest));
   }
 
+  @ParameterizedTest
+  @MethodSource("provideInvalidResourceServerUpdateProblemRequests")
+  void validateUpdate_ShouldThrowResourceNotFoundException(
+      ServerUpdateProblemRequest serverUpdateProblemRequest) {
+    Assertions.assertThrows(ResourceNotFoundException.class,
+        () -> PROBLEM_VALIDATOR.validateUpdate(serverUpdateProblemRequest));
+  }
 
   private static Stream<Arguments> provideValidServerCreateProblemRequests() {
     return Stream.of(
@@ -173,7 +184,7 @@ class ProblemValidatorTest {
     );
   }
 
-  private static Stream<Arguments> provideInvalidServerUpdateProblemRequests() {
+  private static Stream<Arguments> provideInvalidArgumentsServerUpdateProblemRequests() {
     return Stream.of(
         //Invalid because of null
         Arguments.of((ServerUpdateProblemRequest) null),
@@ -263,6 +274,16 @@ class ProblemValidatorTest {
             new ServerUpdateProblemRequest(INVALID_PROBLEM_IDENTIFICATION_NUMBER, PROBLEM_TITLE,
                 PROBLEM_DESCRIPTION, REFERENCE_IDENTIFICATION_NUMBER,
                 null, PROBLEM_REPORTER, PROBLEM_STATE))
+        );
+  }
+
+  private static Stream<Arguments> provideInvalidResourceServerUpdateProblemRequests() {
+    return Stream.of(
+        //invalid because of not existing problem
+        Arguments.of(
+            new ServerUpdateProblemRequest(NOT_EXISTING_PROBLEM_IDENTIFICATION_NUMBER,
+                PROBLEM_TITLE, PROBLEM_DESCRIPTION, REFERENCE_IDENTIFICATION_NUMBER,
+                NOTIFICATION_IDENTIFICATION_NUMBER, PROBLEM_REPORTER, PROBLEM_STATE))
     );
   }
 
