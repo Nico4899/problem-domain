@@ -1,5 +1,7 @@
 package edu.kit.tm.cm.smartcampus.problem.api.controller.problem;
 
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
 import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
@@ -111,7 +113,8 @@ public class ProblemControllerTest {
 
   @Test
   void removeProblem_ShouldRemoveProblem(){
-    //nix (?)
+    PROBLEM_CONTROLLER.removeProblem(problemIdentificationNumber);
+    Mockito.verify(SERVICE).removeProblem(problemIdentificationNumber);
   }
 
 }
