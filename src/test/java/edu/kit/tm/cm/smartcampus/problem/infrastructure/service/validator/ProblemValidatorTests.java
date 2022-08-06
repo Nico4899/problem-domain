@@ -17,7 +17,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
 
-class ProblemValidatorTest {
+class ProblemValidatorTests {
 
   //Attributes
   private static final String PROBLEM_IDENTIFICATION_NUMBER = "p-1";

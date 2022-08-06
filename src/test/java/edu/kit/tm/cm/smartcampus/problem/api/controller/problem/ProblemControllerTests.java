@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class ProblemControllerTest {
+public class ProblemControllerTests {
 
   //Attributes
   private static final String PROBLEM_IDENTIFICATION_NUMBER = "p-1";
