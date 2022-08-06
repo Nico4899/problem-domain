@@ -28,7 +28,6 @@ public class ServiceTests {
   private static final String PROBLEM_1_NOTIFICATION_IDENTIFICATION_NUMBER = "n-1";
   private static final String PROBLEM_1_PROBLEM_REPORTER = "Johannes von Geisau";
   private static final Problem.State PROBLEM_1_PROBLEM_STATE_OPEN = Problem.State.OPEN;
-
   private static final String PROBLEM_2_IDENTIFICATION_NUMBER = "p-2";
   private static final String PROBLEM_2_TITLE = "No toilet paper";
   private static final String PROBLEM_2_DESCRIPTION = "Cannot use the toilet because of the lack of toilet paper";
@@ -36,7 +35,6 @@ public class ServiceTests {
   private static final String PROBLEM_2_NOTIFICATION_IDENTIFICATION_NUMBER = "n-2";
   private static final String PROBLEM_2_PROBLEM_REPORTER = "Jonathan Kramer";
   private static final Problem.State PROBLEM_2_PROBLEM_STATE_OPEN = Problem.State.OPEN;
-
   private static final String UPDATED_PROBLEM_1_TITLE = "Elevator is still defect!";
   private static final String UPDATED_PROBLEM_1_DESCRIPTION = "Cannot reach any higher floor than "
       + "second level because of a defect.";
@@ -45,18 +43,14 @@ public class ServiceTests {
   private static final String UPDATED_PROBLEM_1_PROBLEM_REPORTER = "Bastian Bacher";
   private static final Problem.State UPDATED_PROBLEM_1_PROBLEM_STATE = Problem.State.ACCEPTED;
 
-
-
   private static final ProblemRepository PROBLEM_REPOSITORY = mock(ProblemRepository.class);
   private static final ProblemValidator PROBLEM_VALIDATOR = mock(ProblemValidator.class);
-
   private static final Service SERVICE = new Service(PROBLEM_REPOSITORY, PROBLEM_VALIDATOR);
   private static ServerCreateProblemRequest serverCreateProblemRequest;
   private static ServerUpdateProblemRequest serverUpdateProblemRequest;
 
   private static Problem problem1;
   private static Problem updatedProblem1;
-
   private static Collection<Problem> listOfProblems;
 
 
@@ -134,14 +128,16 @@ public class ServiceTests {
   @Test
   void createProblem_ShouldCreateNewProblem() {
     Mockito.when(PROBLEM_REPOSITORY.save(any())).thenAnswer(i -> i.getArguments()[0]);
+
     Timestamp beforeCreate = new Timestamp(System.currentTimeMillis());
     Problem createdProblem = SERVICE.createProblem(serverCreateProblemRequest);
     Timestamp afterCreate = new Timestamp(System.currentTimeMillis());
+
     Assertions.assertTrue(createdProblem.getCreationTime().getNanos() >= beforeCreate.getNanos()
         && createdProblem.getCreationTime().getNanos() <= afterCreate.getNanos());
     Assertions.assertTrue(createdProblem.getLastModifiedTime().getNanos() >= beforeCreate.getNanos()
         && createdProblem.getLastModifiedTime().getNanos() <= afterCreate.getNanos());
-    Assertions.assertTrue(TestUtils.compareProblems(problem1, createdProblem));
+    Assertions.assertTrue(TestUtils.problemsAreEqual(problem1, createdProblem));
   }
 
   @Test
@@ -149,13 +145,15 @@ public class ServiceTests {
     Mockito.when(PROBLEM_REPOSITORY.save(any())).thenAnswer(i -> i.getArguments()[0]);
     Mockito.when(PROBLEM_REPOSITORY.findById(serverUpdateProblemRequest.getIdentificationNumber())).thenReturn(
         Optional.of(problem1));
-    Timestamp beforeCreate = new Timestamp(System.currentTimeMillis());
+
+    Timestamp beforeUpdate = new Timestamp(System.currentTimeMillis());
     Problem updatedProblem = SERVICE.updateProblem(serverUpdateProblemRequest);
-    Timestamp afterCreate = new Timestamp(System.currentTimeMillis());
-    Assertions.assertTrue(updatedProblem.getLastModifiedTime().getNanos() >= beforeCreate.getNanos()
-        && updatedProblem.getLastModifiedTime().getNanos() <= afterCreate.getNanos());
-    Assertions.assertTrue(beforeCreate.getNanos() >= updatedProblem.getCreationTime().getNanos());
-    Assertions.assertTrue(TestUtils.compareProblems(updatedProblem1, updatedProblem));
+    Timestamp afterUpdate = new Timestamp(System.currentTimeMillis());
+
+    Assertions.assertTrue(updatedProblem.getLastModifiedTime().getNanos() >= beforeUpdate.getNanos()
+        && updatedProblem.getLastModifiedTime().getNanos() <= afterUpdate.getNanos());
+    Assertions.assertTrue(beforeUpdate.getNanos() >= updatedProblem.getCreationTime().getNanos());
+    Assertions.assertTrue(TestUtils.problemsAreEqual(updatedProblem1, updatedProblem));
   }
 
 }

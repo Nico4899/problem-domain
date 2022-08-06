@@ -2,9 +2,12 @@ package edu.kit.tm.cm.smartcampus.problem;
 
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 
+/**
+ * This Class provides test utils.
+ */
 public final class TestUtils {
 
-  public static boolean compareProblems(Problem problem1, Problem problem2) {
+  public static boolean problemsAreEqual(Problem problem1, Problem problem2) {
     if (problem1 == null || problem2 == null) {
       return false;
     }
@@ -29,6 +32,5 @@ public final class TestUtils {
     }
     return problem1.getReporter().equals(problem2.getReporter());
   }
-
 
 }
