@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 
 class ProblemValidatorTest {
 
+  //Attributes
   private static final String PROBLEM_IDENTIFICATION_NUMBER = "p-1";
   private static final String PROBLEM_TITLE = "Elevator is defect";
   private static final String PROBLEM_DESCRIPTION = "Cannot reach any higher floor than second level";
@@ -32,7 +33,7 @@ class ProblemValidatorTest {
   private static final String INVALID_REFERENCE_IDENTIFICATION_NUMBER = "b1";
   private static final String INVALID_NOTIFICATION_IDENTIFICATION_NUMBER = "n1";
 
-
+  //Mocks
   private static final ProblemRepository PROBLEM_REPOSITORY = mock(ProblemRepository.class);
   private static final ProblemValidator PROBLEM_VALIDATOR = new ProblemValidator(
       PROBLEM_REPOSITORY);

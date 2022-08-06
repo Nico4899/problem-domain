@@ -21,6 +21,7 @@ import static org.mockito.Mockito.mock;
 
 public class ServiceTests {
 
+  //Attributes
   private static final String PROBLEM_1_IDENTIFICATION_NUMBER = "p-1";
   private static final String PROBLEM_1_TITLE = "Elevator is defect";
   private static final String PROBLEM_1_DESCRIPTION = "Cannot reach any higher floor than second level";
@@ -42,13 +43,14 @@ public class ServiceTests {
   private static final String UPDATED_PROBLEM_1_NOTIFICATION_IDENTIFICATION_NUMBER = "n-1";
   private static final String UPDATED_PROBLEM_1_PROBLEM_REPORTER = "Bastian Bacher";
   private static final Problem.State UPDATED_PROBLEM_1_PROBLEM_STATE = Problem.State.ACCEPTED;
-
+  //Mocks
   private static final ProblemRepository PROBLEM_REPOSITORY = mock(ProblemRepository.class);
   private static final ProblemValidator PROBLEM_VALIDATOR = mock(ProblemValidator.class);
   private static final Service SERVICE = new Service(PROBLEM_REPOSITORY, PROBLEM_VALIDATOR);
+  //Requests
   private static ServerCreateProblemRequest serverCreateProblemRequest;
   private static ServerUpdateProblemRequest serverUpdateProblemRequest;
-
+  //Instances
   private static Problem problem1;
   private static Problem updatedProblem1;
   private static Collection<Problem> listOfProblems;

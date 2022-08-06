@@ -7,6 +7,13 @@ import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
  */
 public final class TestUtils {
 
+  /**
+   * Checks whether two problems are equal (except for their identification number) or not.
+   *
+   * @param problem1 the first problem to be checked
+   * @param problem2 the second problem to be checked
+   * @return whether they are equal or not
+   */
   public static boolean problemsAreEqual(Problem problem1, Problem problem2) {
     if (problem1 == null || problem2 == null) {
       return false;
@@ -15,10 +22,12 @@ public final class TestUtils {
       return true;
     }
 
-    if (!problem1.getReferenceIdentificationNumber().equals(problem2.getReferenceIdentificationNumber())) {
+    if (!problem1.getReferenceIdentificationNumber()
+        .equals(problem2.getReferenceIdentificationNumber())) {
       return false;
     }
-    if (!problem1.getNotificationIdentificationNumber().equals(problem2.getNotificationIdentificationNumber())) {
+    if (!problem1.getNotificationIdentificationNumber()
+        .equals(problem2.getNotificationIdentificationNumber())) {
       return false;
     }
     if (!problem1.getTitle().equals(problem2.getTitle())) {

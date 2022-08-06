@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 
 public class ProblemControllerTest {
 
+  //Attributes
   private static final String PROBLEM_IDENTIFICATION_NUMBER = "p-1";
   private static final String PROBLEM_TITLE = "Elevator is defect";
   private static final String PROBLEM_DESCRIPTION = "Cannot reach any higher floor than second level";
@@ -28,9 +29,10 @@ public class ProblemControllerTest {
   private static final String UPDATE_NOTIFICATION_IDENTIFICATION_NUMBER = "n-2";
   private static final String UPDATE_PROBLEM_REPORTER = "Johannes von Geisau";
   private static final State UPDATE_PROBLEM_STATE = State.ACCEPTED;
-
+  //Mocks
   private static final Service SERVICE = mock(Service.class);
   private static final ProblemController PROBLEM_CONTROLLER = new ProblemController(SERVICE);
+  //Requests
   private static final ServerCreateProblemRequest SERVER_CREATE_PROBLEM_REQUEST =
       new ServerCreateProblemRequest(
           PROBLEM_TITLE,
@@ -49,6 +51,7 @@ public class ProblemControllerTest {
           UPDATE_PROBLEM_REPORTER,
           UPDATE_PROBLEM_STATE
       );
+  //Instances
   private static final Problem PROBLEM = new Problem();
 
   @BeforeAll
