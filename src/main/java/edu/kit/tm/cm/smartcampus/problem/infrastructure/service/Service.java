@@ -87,8 +87,10 @@ public class Service {
    */
   public Problem updateProblem(ServerUpdateProblemRequest serverUpdateProblemRequest) {
     this.problemValidator.validateUpdate(serverUpdateProblemRequest);
-    Problem problem = DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(serverUpdateProblemRequest);
-    problem.setCreationTime(this.problemRepository.findById(problem.getIdentificationNumber()).get().getCreationTime());
+    Problem problem = DataTransferUtils.ServerRequestReader.readServerUpdateProblemRequest(
+        serverUpdateProblemRequest);
+    problem.setCreationTime(
+        this.problemRepository.findById(problem.getIdentificationNumber()).get().getCreationTime());
     problem.setLastModifiedTime(new Timestamp(System.currentTimeMillis()));
     return this.problemRepository.save(problem);
   }

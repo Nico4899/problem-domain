@@ -51,7 +51,7 @@ public class ProblemValidator extends
             DESCRIPTION_NAME, serverCreateProblemRequest.getDescription(),
             REPORTER_NAME, serverCreateProblemRequest.getReporter()));
 
-    Map<String,Pair<String,String>> validateRegexesMap = new HashMap<>(Map.of(
+    Map<String, Pair<String, String>> validateRegexesMap = new HashMap<>(Map.of(
         REFERENCE_IDENTIFICATION_NUMBER_NAME,
         Pair.of(serverCreateProblemRequest.getReferenceIdentificationNumber(),
             BIN_RIN_CIN_PATTERN)));
@@ -81,7 +81,7 @@ public class ProblemValidator extends
             DESCRIPTION_NAME, serverUpdateProblemRequest.getDescription(),
             REPORTER_NAME, serverUpdateProblemRequest.getReporter()));
 
-    Map<String,Pair<String,String>> validateRegexesMap = new HashMap<>(
+    Map<String, Pair<String, String>> validateRegexesMap = new HashMap<>(
         Map.of(IDENTIFICATION_NUMBER_NAME,
             Pair.of(serverUpdateProblemRequest.getIdentificationNumber(), PIN_PATTERN),
             REFERENCE_IDENTIFICATION_NUMBER_NAME,

@@ -1,23 +1,22 @@
 package edu.kit.tm.cm.smartcampus.problem.infrastructure.service;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+
+import edu.kit.tm.cm.smartcampus.problem.TestUtils;
 import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerCreateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.api.controller.problem.dto.ServerUpdateProblemRequest;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.database.ProblemRepository;
 import edu.kit.tm.cm.smartcampus.problem.infrastructure.service.validator.ProblemValidator;
 import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
-import edu.kit.tm.cm.smartcampus.problem.TestUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class ServiceTests {
 
@@ -103,8 +102,10 @@ public class ServiceTests {
     updatedProblem1.setDescription(UPDATED_PROBLEM_1_DESCRIPTION);
     updatedProblem1.setReporter(UPDATED_PROBLEM_1_PROBLEM_REPORTER);
     updatedProblem1.setTitle(UPDATED_PROBLEM_1_TITLE);
-    updatedProblem1.setNotificationIdentificationNumber(UPDATED_PROBLEM_1_NOTIFICATION_IDENTIFICATION_NUMBER);
-    updatedProblem1.setReferenceIdentificationNumber(UPDATED_PROBLEM_1_REFERENCE_IDENTIFICATION_NUMBER);
+    updatedProblem1.setNotificationIdentificationNumber(
+        UPDATED_PROBLEM_1_NOTIFICATION_IDENTIFICATION_NUMBER);
+    updatedProblem1.setReferenceIdentificationNumber(
+        UPDATED_PROBLEM_1_REFERENCE_IDENTIFICATION_NUMBER);
     updatedProblem1.setCreationTime(problem1.getCreationTime());
     updatedProblem1.setLastModifiedTime(new Timestamp(System.currentTimeMillis()));
 
@@ -145,8 +146,9 @@ public class ServiceTests {
   @Test
   void updateProblem_ShouldUpdateProblem() {
     Mockito.when(PROBLEM_REPOSITORY.save(any())).thenAnswer(i -> i.getArguments()[0]);
-    Mockito.when(PROBLEM_REPOSITORY.findById(serverUpdateProblemRequest.getIdentificationNumber())).thenReturn(
-        Optional.of(problem1));
+    Mockito.when(PROBLEM_REPOSITORY.findById(serverUpdateProblemRequest.getIdentificationNumber()))
+        .thenReturn(
+            Optional.of(problem1));
 
     Timestamp beforeUpdate = new Timestamp(System.currentTimeMillis());
     Problem updatedProblem = SERVICE.updateProblem(serverUpdateProblemRequest);

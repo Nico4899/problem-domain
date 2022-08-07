@@ -6,12 +6,24 @@ import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * This Class provides utils for data transfer objects.
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DataTransferUtils {
 
+  /**
+   * This class represents a server request reader.
+   */
   @NoArgsConstructor(access = AccessLevel.PRIVATE)
   public static class ServerRequestReader {
 
+    /**
+     * Reads a server create request for a problem and converts it to a problem.
+     *
+     * @param serverCreateProblemRequest the server create request
+     * @return the problem
+     */
     public static Problem readServerCreateProblemRequest(
         ServerCreateProblemRequest serverCreateProblemRequest) {
       Problem problem = new Problem();
@@ -25,6 +37,12 @@ public final class DataTransferUtils {
       return problem;
     }
 
+    /**
+     * Reads a server update request for a problem and converts it to a problem.
+     *
+     * @param serverUpdateProblemRequest the server update request
+     * @return the problem
+     */
     public static Problem readServerUpdateProblemRequest(
         ServerUpdateProblemRequest serverUpdateProblemRequest) {
       Problem problem = new Problem();

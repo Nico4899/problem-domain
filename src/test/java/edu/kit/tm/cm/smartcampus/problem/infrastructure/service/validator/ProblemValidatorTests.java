@@ -275,7 +275,7 @@ class ProblemValidatorTests {
             new ServerUpdateProblemRequest(INVALID_PROBLEM_IDENTIFICATION_NUMBER, PROBLEM_TITLE,
                 PROBLEM_DESCRIPTION, REFERENCE_IDENTIFICATION_NUMBER,
                 null, PROBLEM_REPORTER, PROBLEM_STATE))
-        );
+    );
   }
 
   private static Stream<Arguments> provideInvalidResourceServerUpdateProblemRequests() {
