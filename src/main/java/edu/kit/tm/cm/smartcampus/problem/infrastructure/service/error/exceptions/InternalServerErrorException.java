@@ -3,6 +3,7 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exception
 /**
  * This exception is thrown whenever some internal server error is captured, it contains a proper
  * error message.
+ *
  * @author Jonathan Kramer, Johannes von Geisau
  */
 public class InternalServerErrorException extends RuntimeException {

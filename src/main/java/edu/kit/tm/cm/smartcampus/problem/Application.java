@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * The main entry point of the Application.
+ *
  * @author Jonathan Kramer, Johannes von Geisau
  */
 @SpringBootApplication

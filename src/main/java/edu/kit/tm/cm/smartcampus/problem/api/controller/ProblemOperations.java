@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * This interface provides all rest server operations connected to "/problems" requests. It also
  * provides their {@link GetMapping} for the call url.
+ *
  * @author Jonathan Kramer, Johannes von Geisau
  */
 @RequestMapping("/problems")

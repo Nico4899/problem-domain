@@ -18,6 +18,7 @@ import org.hibernate.annotations.Parameter;
 
 /**
  * This class represents a domain entity problem, it holds {@link State} as public enum constants.
+ *
  * @author Jonathan Kramer, Johannes von Geisau
  */
 @Setter
