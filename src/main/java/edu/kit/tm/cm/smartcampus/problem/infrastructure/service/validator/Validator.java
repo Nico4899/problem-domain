@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @param <O> the type of which this validator validates update request objects
  * @param <R> the other type of which the validator validates create request objects
+ * @author Jonathan Kramer, Johannes von Geisau
  */
 public abstract class Validator<O, R> {
 

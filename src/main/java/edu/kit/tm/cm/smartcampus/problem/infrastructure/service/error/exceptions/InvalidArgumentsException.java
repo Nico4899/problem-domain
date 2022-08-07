@@ -3,6 +3,7 @@ package edu.kit.tm.cm.smartcampus.problem.infrastructure.service.error.exception
 /**
  * This exception is thrown whenever invalid arguments are found, it contains a proper error
  * message.
+ * @author Jonathan Kramer, Johannes von Geisau
  */
 public class InvalidArgumentsException extends RuntimeException {
 

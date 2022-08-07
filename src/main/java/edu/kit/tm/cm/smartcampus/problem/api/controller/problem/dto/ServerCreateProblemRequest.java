@@ -7,6 +7,7 @@ import lombok.Setter;
 
 /**
  * This class represents a create request for a Problem.
+ * @author Jonathan Kramer, Johannes von Geisau
  */
 @Data
 @Setter

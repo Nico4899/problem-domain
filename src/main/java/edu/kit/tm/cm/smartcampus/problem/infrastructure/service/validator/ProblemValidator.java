@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * This class is a child implementation of the {@link Validator}, it focuses on validating
  * {@link Problem} requests. It calls parent methods to validate certain attributes.
+ * @author Jonathan Kramer, Johannes von Geisau
  */
 @Component
 public class ProblemValidator extends
