@@ -8,7 +8,8 @@ import edu.kit.tm.cm.smartcampus.problem.logic.model.Problem;
 public final class TestUtils {
 
   /**
-   * Checks whether two problems are equal (except for their identification number) or not.
+   * Checks whether two problems are equal (except for their identification number, creation time
+   * and modification time) or not.
    *
    * @param problem1 the first problem to be checked
    * @param problem2 the second problem to be checked
