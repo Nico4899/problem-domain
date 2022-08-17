@@ -10,12 +10,10 @@ import lombok.Setter;
  *
  * @author Jonathan Kramer, Johannes von Geisau
  */
-@Data
 @Setter
 @Getter
 @AllArgsConstructor
 public class ServerCreateProblemRequest {
-
   private String title;
   private String description;
   private String referenceIdentificationNumber;
