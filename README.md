@@ -12,8 +12,6 @@ This domain microservice provides information, and notifications about buildings
 
  [API Specification](api/openapi.yaml) 
 
- [Application Context Class Diagram](pages/application_context_class_diagram.md)
-
 ## Implementation and Tests
 
  [Local Installation](pages/installation.md)
