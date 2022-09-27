@@ -73,6 +73,7 @@ public class Problem {
   private Timestamp lastModifiedTime;
 
   private String title;
+  @Column(columnDefinition = "TEXT")
   private String description;
   private State state;
   private String reporter;
