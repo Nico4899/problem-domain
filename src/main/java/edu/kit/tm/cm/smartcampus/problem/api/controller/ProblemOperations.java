@@ -70,6 +70,6 @@ public interface ProblemOperations {
    *
    * @param in reference identification number of the problems to be removed
    */
-  @DeleteMapping("/{in}")
+  @DeleteMapping("/clear/{in}")
   void removeProblemsByReferenceIdentificationNumber(@PathVariable String in);
 }
