@@ -62,7 +62,7 @@ public class ProblemController implements ProblemOperations {
   }
 
   @Override
-  public void removeProblemsByReferenceIdentificationNumber(String rin) {
-    service.removeProblemsByReferenceIdentificationNumber(rin);
+  public void removeProblemsByReferenceIdentificationNumber(String in) {
+    service.removeProblemsByReferenceIdentificationNumber(in);
   }
 }

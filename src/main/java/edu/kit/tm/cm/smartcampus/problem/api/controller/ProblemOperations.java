@@ -68,8 +68,8 @@ public interface ProblemOperations {
    * Remove all {@link Problem} on "/problems" with a certain referenceIdentificationNumber from
    * this domain service.
    *
-   * @param rin reference identification number of the problems to be removed
+   * @param in reference identification number of the problems to be removed
    */
-  @DeleteMapping("/{rin}")
-  void removeProblemsByReferenceIdentificationNumber(@PathVariable String rin);
+  @DeleteMapping("/{in}")
+  void removeProblemsByReferenceIdentificationNumber(@PathVariable String in);
 }
