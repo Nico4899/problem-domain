@@ -106,4 +106,15 @@ public class Service {
     this.problemValidator.validate(problemIdentificationNumber);
     problemRepository.deleteById(problemIdentificationNumber);
   }
+
+  /**
+   * Remove all {@link Problem} with a specific referenceIdentificationNumber from this domain
+   * service.
+   *
+   * @param referenceIdentificationNumber the reference identification number of the problems
+   */
+  public void removeProblemsByReferenceIdentificationNumber(String referenceIdentificationNumber) {
+    this.problemValidator.validateReferenceIdentificationNumber(referenceIdentificationNumber);
+    problemRepository.deleteByReferenceId(referenceIdentificationNumber);
+  }
 }

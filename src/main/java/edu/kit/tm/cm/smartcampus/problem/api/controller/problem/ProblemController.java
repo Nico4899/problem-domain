@@ -60,4 +60,9 @@ public class ProblemController implements ProblemOperations {
   public void removeProblem(String pin) {
     service.removeProblem(pin);
   }
+
+  @Override
+  public void removeProblemsByReferenceIdentificationNumber(String rin) {
+    service.removeProblemsByReferenceIdentificationNumber(rin);
+  }
 }

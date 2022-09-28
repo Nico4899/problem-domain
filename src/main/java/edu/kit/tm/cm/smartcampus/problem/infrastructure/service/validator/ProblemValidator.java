@@ -100,4 +100,18 @@ public class ProblemValidator extends
         PROBLEM_IDENTIFICATION_NUMBER_NAME);
   }
 
+  /**
+   * Validates a referenceIdentificationNumber.
+   *
+   * @param referenceIdentificationNumber the reference identification number to validate
+   */
+  public void validateReferenceIdentificationNumber(String referenceIdentificationNumber) {
+    validateNotNull(
+        List.of(Pair.of(REFERENCE_IDENTIFICATION_NUMBER_NAME, referenceIdentificationNumber)));
+
+    validateMatchesRegex(
+        Map.of(REFERENCE_IDENTIFICATION_NUMBER_NAME,
+            Pair.of(referenceIdentificationNumber, BIN_RIN_CIN_PATTERN)));
+  }
+
 }
