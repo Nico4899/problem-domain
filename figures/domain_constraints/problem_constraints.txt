@@ -1,0 +1,25 @@
+context Problem inv:
+
+self.title->notEmpty()
+
+self.description->notEmpty()
+
+self.identificationNumber.matches(^p-\d+$)
+
+self.referenceIdentificationNumber->notEmpty()
+
+self.referenceIdentificationNumber.matches(^b-\d+$) | self.referenceIdentificationNumber.matches(^r-\d+$) | self.referenceIdentificationNumber.matches(^c-\d+$)
+self.referenceIdentificationNumber.matches(^b-\d+$) -> implies building.findById(self.referenceIdentificationNumber)->exists()
+self.referenceIdentificationNumber.matches(^r-\d+$) -> implies room.findById(self.referenceIdentificationNumber)->exists()
+self.referenceIdentificationNumber.matches(^c-\d+$) -> implies component.findById(self.referenceIdentificationNumber)->exists()
+
+self.notificationIdentificationNumber.matches(^n-\d+$)
+self.notificationIdentificationNumber.matches(^n-\d+$) -> implies notification.findById(self.notificationIdentificationNumber)->exists()
+
+self.state->notEmpty()
+
+self.reporter->notEmpty()
+
+self.creationTime->notEmpty()
+
+self.lastModifiedTime->notEmpty()
